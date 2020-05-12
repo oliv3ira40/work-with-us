@@ -1,0 +1,115 @@
+.height-auto {
+    height: auto !important;
+}
+
+.font-bold {
+    font-weight: bold !important;
+}
+.font-weight {
+    font-weight: 500 !important;
+}
+
+.text-black
+{
+    color: black !important;
+}
+
+.txt-trans-initial {
+    text-transform: initial !important;
+}
+.txt-trans-upper {
+    text-transform: uppercase !important;
+}
+
+
+/* Multiple Select */
+.ms-container {
+    width: auto !important;
+}
+
+.label, .jvectormap-tip {
+    padding: 5px 5px 5px !important;
+}
+
+.acordion-called {
+    padding: 10px 15px !important;
+}
+
+.switchery {
+    margin-right: 10px;
+    margin-top: 5px !important;
+}
+
+.jq-toast-wrap .jq-toast-single.jq-icon-error {
+    font-size: 12px;
+}
+
+.my-btn
+{
+    padding: 2px 5px !important;
+    margin: 2px 0 !important;
+}
+.btn-trans.btn
+{
+    border: solid 1px #cccdcd !important;
+    font-weight: 500 !important;
+}
+
+@media (min-width: 320px) and (max-width: 374px)
+{
+    /* .header-auth img { width: 122px !important; }
+    .header-auth h4 { font-size: 17px !important; }
+
+    .header-title { margin-top: -6px; } */
+}
+
+@media (min-width: 375px) and (max-width: 424px)
+{
+    /* .header-auth img { width: 152px !important; }
+    .header-auth h4 { font-size: 20px !important; }
+
+    .header-title { margin-top: -2px; } */
+}
+
+@media (min-width: 425px)
+{
+    /* .header-auth img { width: 172px !important; }
+    .header-auth h4 { font-size: 22px !important; }
+
+    .header-title { margin-top: 2px; } */
+}
+
+/* Background pages Login, register and reset password */
+.account-pages {
+    background: url(../assets/fundos/01.png) center !important;
+    /* background: unset !important; */
+    position: absolute !important;
+    height: 100% !important;
+    top: 0 !important;
+    width: 100% !important;
+    background-size: cover !important;
+    border: 20px solid rgba(67, 89, 102, 0.3) !important;
+}
+
+.div-btn-dark-mode
+{
+    float: right;
+    top: -5px;
+    position: relative;
+}
+
+.avatar:hover
+{
+    border: solid 1px #a2a2a2;
+    border-radius: 10%;
+    cursor: pointer;
+}
+.select_avatar
+{
+    border: solid 3px #a2a2a2;
+    border-radius: 10%;
+    cursor: pointer;
+}
+
+.pt-0 { padding-top: 0px !important; }
+.pb-0 { padding-bottom: 0px !important; }
