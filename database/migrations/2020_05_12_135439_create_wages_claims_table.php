@@ -16,6 +16,9 @@ class CreateWagesClaimsTable extends Migration
         Schema::create('wages_claims', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            // {currencie_available_id}
+            $table->decimal('value', 11, 2);
+
             $table->timestamps();
             $table->softDeletes();
         });

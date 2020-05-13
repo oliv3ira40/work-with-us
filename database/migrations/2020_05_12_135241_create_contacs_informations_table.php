@@ -13,8 +13,12 @@ class CreateContacsInformationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('contacs_informations', function (Blueprint $table) {
+        Schema::create('contacts_informations', function (Blueprint $table) {
             $table->bigIncrements('id');
+
+            // personal_information_id
+            $table->string('email', 100);
+            $table->string('linkedin', 250);
 
             $table->timestamps();
             $table->softDeletes();

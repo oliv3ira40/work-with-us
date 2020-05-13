@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTypesOfContractsAvailablesTable extends Migration
+class CreateCurrenciesAvailableTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateTypesOfContractsAvailablesTable extends Migration
      */
     public function up()
     {
-        Schema::create('types_of_contracts_availables', function (Blueprint $table) {
+        Schema::create('currencies_available', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->string('name', 50);
+            $table->string('code', 10);
+            $table->string('currency', 20);
 
             $table->timestamps();
             $table->softDeletes();
@@ -30,6 +31,6 @@ class CreateTypesOfContractsAvailablesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('types_of_contracts_availables');
+        Schema::dropIfExists('currencies_available');
     }
 }

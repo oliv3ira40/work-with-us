@@ -16,6 +16,8 @@ class CreateMedicalsReportsOfDisabilitiesTable extends Migration
         Schema::create('medicals_reports_of_disabilities', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            $table->string('path', 250);
+
             $table->timestamps();
             $table->softDeletes();
         });

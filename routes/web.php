@@ -68,8 +68,6 @@ Route::group(['middleware' => 'VerifyUserPermissions'], function(){
     Route::post('adm/check_email', 'Auth\LoginCOntroller@checkEmail')->name('adm.check_email');
     
     Route::get('adm/bem-vindo-de-volta/{id}', 'Auth\LoginCOntroller@welcomeBack')->name('adm.welcome_back');
-    Route::get('adm/novo-candidato/{id}', 'Auth\LoginCOntroller@newCandidate')->name('adm.new_candidate');
-    Route::get('adm/save-new-candidate', 'Auth\LoginCOntroller@saveNewCandidate')->name('adm.save_new_candidate');
 
     // AUTH
         Route::get('adm/esqueci-a-senha', 'Admin\ResetPasswordController@resetPassword')->name('adm.reset_password');

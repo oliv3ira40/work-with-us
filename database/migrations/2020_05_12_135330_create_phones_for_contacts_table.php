@@ -16,6 +16,9 @@ class CreatePhonesForContactsTable extends Migration
         Schema::create('phones_for_contacts', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            // contact_information_id
+            $table->string('telephone', 30);
+
             $table->timestamps();
             $table->softDeletes();
         });

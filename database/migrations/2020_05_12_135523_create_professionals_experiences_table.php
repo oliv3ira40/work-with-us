@@ -16,6 +16,22 @@ class CreateProfessionalsExperiencesTable extends Migration
         Schema::create('professionals_experiences', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            // personal_information_id
+            $table->tinyInteger('i_dont_have_experience');
+            $table->string('office', 100);
+            $table->string('company', 100);
+            // {currencie_available_id}
+            $table->decimal('value', 11, 2);
+            $table->string('description', 500);
+            $table->string('starting_month', 10);
+            $table->string('starting_year', 10);
+            
+            $table->tinyInteger('work_here_currently');
+            $table->string('conclusion_month', 10);
+            $table->string('conclusion_year', 10);
+            $table->string('benefits', 100);
+            // {type_of_contract_id}
+
             $table->timestamps();
             $table->softDeletes();
         });

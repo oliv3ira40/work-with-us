@@ -13,8 +13,10 @@ class CreateSchoolchildrensAvailablesTable extends Migration
      */
     public function up()
     {
-        Schema::create('schoolchildrens_availables', function (Blueprint $table) {
+        Schema::create('schoolings_availables', function (Blueprint $table) {
             $table->bigIncrements('id');
+
+            $table->string('name', 100);
 
             $table->timestamps();
             $table->softDeletes();

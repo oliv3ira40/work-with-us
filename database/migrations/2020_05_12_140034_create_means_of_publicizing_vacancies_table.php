@@ -16,6 +16,8 @@ class CreateMeansOfPublicizingVacanciesTable extends Migration
         Schema::create('means_of_publicizing_vacancies', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            $table->string('name', 100);
+
             $table->timestamps();
             $table->softDeletes();
         });

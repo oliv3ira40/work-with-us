@@ -16,6 +16,8 @@ class CreateTypesOfCoursesAvailablesTable extends Migration
         Schema::create('types_of_courses_availables', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            $table->string('name', 100);
+
             $table->timestamps();
             $table->softDeletes();
         });

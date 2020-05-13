@@ -13,8 +13,10 @@ class CreateCurriculumTable extends Migration
      */
     public function up()
     {
-        Schema::create('curriculum', function (Blueprint $table) {
+        Schema::create('curriculums', function (Blueprint $table) {
             $table->bigIncrements('id');
+
+            $table->string('path', 250);
 
             $table->timestamps();
             $table->softDeletes();
