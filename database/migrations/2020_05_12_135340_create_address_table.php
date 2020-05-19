@@ -17,7 +17,6 @@ class CreateAddressTable extends Migration
             $table->bigIncrements('id');
 
             $table->string('country', 15);
-            
             $table->string('zip_code', 20);
             $table->string('street', 100);
             $table->string('neighborhood', 50);

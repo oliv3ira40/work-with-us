@@ -76,6 +76,9 @@
         <script src="{{ asset('admin/assets/js/jquery.slimscroll.js') }}"></script>
         <script src="{{ asset('admin/assets/js/jquery.scrollTo.min.js') }}"></script>
 
+        <!-- file uploads js -->
+        <script src="{{ asset('admin/assets/plugins/fileuploads/js/dropify.min.js') }}"></script>
+
         <!--Morris Chart-->
         <script src="{{ asset('admin/assets/plugins/morris/morris.min.js') }}"></script>
         <script src="{{ asset('admin/assets/plugins/raphael/raphael-min.js') }}"></script>
@@ -132,6 +135,7 @@
         
         <script src="{{ asset('js/utilities/masks.js') }}"></script>
         <script src="{{ asset('js/utilities/via_cep.js') }}"></script>
+        <script src="{{ asset('js/utilities/config_file_uploads.js') }}"></script>
         
         <script src="{{ asset('js/date_picker.js') }}"></script>
         <script src="{{ asset('js/div_update_password.js') }}"></script>

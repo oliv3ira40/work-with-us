@@ -59,17 +59,26 @@ Route::group(['middleware' => 'VerifyUserPermissions'], function(){
         // Avatar
             Route::post('/avatars/change_user_avatar', 'Admin\AvatarController@changeUserAvatar')->name('adm.avatars.change_user_avatar');
         // Avatar
+            
+        // personalInformations
+            Route::get('informacoes-pessoais/cadastro',
+                'Admin\PersoInformation\PersoInforController@new')
+                ->name('adm.personal_informations.new');
+            Route::post('perso-information/save',
+                'Admin\PersoInformation\PersoInforController@save')
+                ->name('adm.personal_informations.save');
+        // personalInformations
         
     });	/*Fecha grupo de verificação de permissões*/
         
     Route::get('/sem-permissao', 'Admin\AdminController@withoutPermission')->name('adm.withoutPermission');
 
     Auth::routes();
-    Route::post('adm/check_email', 'Auth\LoginCOntroller@checkEmail')->name('adm.check_email');
+    Route::post('check_email', 'Auth\LoginCOntroller@checkEmail')->name('adm.check_email');
     
-    Route::get('adm/bem-vindo-de-volta/{id}', 'Auth\LoginCOntroller@welcomeBack')->name('adm.welcome_back');
+    Route::get('bem-vindo-de-volta/{id}', 'Auth\LoginCOntroller@welcomeBack')->name('adm.welcome_back');
 
     // AUTH
-        Route::get('adm/esqueci-a-senha', 'Admin\ResetPasswordController@resetPassword')->name('adm.reset_password');
-        Route::post('adm/send-new-password', 'Admin\ResetPasswordController@sendNewPassword')->name('adm.send_new_password');
+        Route::get('esqueci-a-senha', 'Admin\ResetPasswordController@resetPassword')->name('adm.reset_password');
+        Route::post('send-new-password', 'Admin\ResetPasswordController@sendNewPassword')->name('adm.send_new_password');
     // AUTHv
