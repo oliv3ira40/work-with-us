@@ -3,6 +3,7 @@
 use App\Http\Controllers\Peoples\AdministratorController;
 use App\Models\Admin\Calleds\Product;
 use App\Models\Admin\Calleds\ProductSeveritie;
+use App\Models\Admin\Jobs\JobOpportunity;
 
 Route::group(['middleware' => 'VerifyUserPermissions'], function(){
 
@@ -59,7 +60,37 @@ Route::group(['middleware' => 'VerifyUserPermissions'], function(){
         // Avatar
             Route::post('/avatars/change_user_avatar', 'Admin\AvatarController@changeUserAvatar')->name('adm.avatars.change_user_avatar');
         // Avatar
-            
+
+        // JobOpportunity
+            Route::get('vagas-disponiveis',
+                'Admin\Jobs\JobOpportunityController@list')
+                ->name('adm.job_opportunities.list');
+
+            Route::get('vagas-cadastro',
+                'Admin\Jobs\JobOpportunityController@new')
+                ->name('adm.job_opportunities.new');
+            Route::post('vagas-save',
+                'Admin\Jobs\JobOpportunityController@save')
+                ->name('adm.job_opportunities.save');
+            Route::match(['get', 'post'], 'vagas-get-cities-by-state',
+                'Admin\Jobs\JobOpportunityController@getCitiesByState')
+                ->name('adm.job_opportunities.get_cities_by_state');
+
+            Route::get('vagas-edicao/{id}',
+                'Admin\Jobs\JobOpportunityController@edit')
+                ->name('adm.job_opportunities.edit');
+            Route::post('vagas-update',
+                'Admin\Jobs\JobOpportunityController@update')
+                ->name('adm.job_opportunities.update');
+
+            Route::get('vagas-alerta/{id}',
+                'Admin\Jobs\JobOpportunityController@alert')
+                ->name('adm.job_opportunities.alert');
+            Route::post('vagas-delete',
+                'Admin\Jobs\JobOpportunityController@delete')
+                ->name('adm.job_opportunities.delete');
+        // JobOpportunity
+
         // personalInformations
             Route::get('informacoes-pessoais/cadastro',
                 'Admin\PersoInformation\PersoInforController@new')
@@ -67,6 +98,141 @@ Route::group(['middleware' => 'VerifyUserPermissions'], function(){
             Route::post('perso-information/save',
                 'Admin\PersoInformation\PersoInforController@save')
                 ->name('adm.personal_informations.save');
+
+            // CurrencyAvailable
+                Route::get('moedas-disponiveis',
+                'Admin\Jobs\CurrencyAvailableController@list')
+                ->name('adm.currency_available.list');
+
+                Route::get('moedas-cadastro',
+                    'Admin\Jobs\CurrencyAvailableController@new')
+                    ->name('adm.currency_available.new');
+                Route::post('moedas-save',
+                    'Admin\Jobs\CurrencyAvailableController@save')
+                    ->name('adm.currency_available.save');
+
+                Route::get('moedas-edicao/{id}',
+                    'Admin\Jobs\CurrencyAvailableController@edit')
+                    ->name('adm.currency_available.edit');
+                Route::post('moedas-update',
+                    'Admin\Jobs\CurrencyAvailableController@update')
+                    ->name('adm.currency_available.update');
+
+                Route::get('moedas-alerta/{id}',
+                    'Admin\Jobs\CurrencyAvailableController@alert')
+                    ->name('adm.currency_available.alert');
+                Route::post('moedas-delete',
+                    'Admin\Jobs\CurrencyAvailableController@alert')
+                    ->name('adm.currency_available.delete');
+            // CurrencyAvailable
+
+            // Education
+                Route::get('moedas-disponiveis',
+                    'Admin\Jobs\EducationController@list')
+                    ->name('adm.education.list');
+
+                Route::get('moedas-cadastro',
+                    'Admin\Jobs\EducationController@new')
+                    ->name('adm.education.new');
+                Route::post('moedas-save',
+                    'Admin\Jobs\EducationController@save')
+                    ->name('adm.education.save');
+
+                Route::get('moedas-edicao/{id}',
+                    'Admin\Jobs\EducationController@edit')
+                    ->name('adm.education.edit');
+                Route::post('moedas-update',
+                    'Admin\Jobs\EducationController@update')
+                    ->name('adm.education.update');
+
+                Route::get('moedas-alerta/{id}',
+                    'Admin\Jobs\EducationController@alert')
+                    ->name('adm.education.alert');
+                Route::post('moedas-delete',
+                    'Admin\Jobs\EducationController@alert')
+                    ->name('adm.education.delete');
+            // Education
+            
+            // MeanOfPublicizingVagancy
+                Route::get('moedas-disponiveis',
+                    'Admin\Jobs\MeanOfPublVagController@list')
+                    ->name('adm.mean_of_publ_vag.list');
+
+                Route::get('moedas-cadastro',
+                    'Admin\Jobs\MeanOfPublVagController@new')
+                    ->name('adm.mean_of_publ_vag.new');
+                Route::post('moedas-save',
+                    'Admin\Jobs\MeanOfPublVagController@save')
+                    ->name('adm.mean_of_publ_vag.save');
+
+                Route::get('moedas-edicao/{id}',
+                    'Admin\Jobs\MeanOfPublVagController@edit')
+                    ->name('adm.mean_of_publ_vag.edit');
+                Route::post('moedas-update',
+                    'Admin\Jobs\MeanOfPublVagController@update')
+                    ->name('adm.mean_of_publ_vag.update');
+
+                Route::get('moedas-alerta/{id}',
+                    'Admin\Jobs\MeanOfPublVagController@alert')
+                    ->name('adm.mean_of_publ_vag.alert');
+                Route::post('moedas-delete',
+                    'Admin\Jobs\MeanOfPublVagController@alert')
+                    ->name('adm.mean_of_publ_vag.delete');
+            // MeanOfPublicizingVagancy
+            
+            // TypeOfContractAvailable
+                Route::get('moedas-disponiveis',
+                    'Admin\Jobs\TypeOfContAvailController@list')
+                    ->name('adm.type_of_cont_avail.list');
+
+                Route::get('moedas-cadastro',
+                    'Admin\Jobs\TypeOfContAvailController@new')
+                    ->name('adm.type_of_cont_avail.new');
+                Route::post('moedas-save',
+                    'Admin\Jobs\TypeOfContAvailController@save')
+                    ->name('adm.type_of_cont_avail.save');
+
+                Route::get('moedas-edicao/{id}',
+                    'Admin\Jobs\TypeOfContAvailController@edit')
+                    ->name('adm.type_of_cont_avail.edit');
+                Route::post('moedas-update',
+                    'Admin\Jobs\TypeOfContAvailController@update')
+                    ->name('adm.type_of_cont_avail.update');
+
+                Route::get('moedas-alerta/{id}',
+                    'Admin\Jobs\TypeOfContAvailController@alert')
+                    ->name('adm.type_of_cont_avail.alert');
+                Route::post('moedas-delete',
+                    'Admin\Jobs\TypeOfContAvailController@alert')
+                    ->name('adm.type_of_cont_avail.delete');
+            // TypeOfContractAvailable
+            
+            // TypeOfCourseAvailable
+                Route::get('moedas-disponiveis',
+                    'Admin\Jobs\TypeCoursAvailController@list')
+                    ->name('adm.type_cours_avail.list');
+
+                Route::get('moedas-cadastro',
+                    'Admin\Jobs\TypeCoursAvailController@new')
+                    ->name('adm.type_cours_avail.new');
+                Route::post('moedas-save',
+                    'Admin\Jobs\TypeCoursAvailController@save')
+                    ->name('adm.type_cours_avail.save');
+
+                Route::get('moedas-edicao/{id}',
+                    'Admin\Jobs\TypeCoursAvailController@edit')
+                    ->name('adm.type_cours_avail.edit');
+                Route::post('moedas-update',
+                    'Admin\Jobs\TypeCoursAvailController@update')
+                    ->name('adm.type_cours_avail.update');
+
+                Route::get('moedas-alerta/{id}',
+                    'Admin\Jobs\TypeCoursAvailController@alert')
+                    ->name('adm.type_cours_avail.alert');
+                Route::post('moedas-delete',
+                    'Admin\Jobs\TypeCoursAvailController@alert')
+                    ->name('adm.type_cours_avail.delete');
+            // TypeOfCourseAvailable
         // personalInformations
         
     });	/*Fecha grupo de verificação de permissões*/

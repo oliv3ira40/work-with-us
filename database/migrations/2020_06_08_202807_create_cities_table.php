@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSchoolchildrensAvailablesTable extends Migration
+class CreateCitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateSchoolchildrensAvailablesTable extends Migration
      */
     public function up()
     {
-        Schema::create('schoolings_availables', function (Blueprint $table) {
+        Schema::create('cities', function (Blueprint $table) {
             $table->bigIncrements('id');
-
-            $table->tinyInteger('compound_register');
-            $table->string('name', 100);
-
+            
+            $table->string('name', 30);
+            // state_id
+            
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +31,6 @@ class CreateSchoolchildrensAvailablesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('schoolchildrens_availables');
+        Schema::dropIfExists('cities');
     }
 }

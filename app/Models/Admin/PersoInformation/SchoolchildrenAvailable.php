@@ -8,6 +8,7 @@ class SchoolchildrenAvailable extends Model
 {
     protected $table = 'schoolings_availables';
     protected $fillable = [
+        'compound_register',
         'name',
     ];
 }

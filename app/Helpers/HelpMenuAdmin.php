@@ -13,6 +13,7 @@
 		{
 			$action = \Request::route()->action['as'] ?? '';
 			$auth_user = \Auth::user();
+			// dd($action);
 
 			if (HelpAdmin::IsUserDeveloper())
 			{
@@ -27,7 +28,6 @@
 						'line'=>true,
 	
 						'a-active'=>(in_array($action, ['adm.index'])) ? 'active' : '',
-						'aria-expanded'=>(in_array($action, ['adm.index'])) ? 'true' : '',
 					],
 	
 					// MENU Desenvolvedor
@@ -49,18 +49,6 @@
 							'adm.users.edit',
 							'adm.users.alert',
 						])) ? 'active' : '',
-						'aria-expanded'=>(in_array($action, [
-							'adm.users.list',
-							'adm.users.new',
-							'adm.users.edit',
-							'adm.users.alert',
-						])) ? 'true' : '',
-						'ul-active'=>(in_array($action, [
-							'adm.users.list',
-							'adm.users.new',
-							'adm.users.edit',
-							'adm.users.alert',
-						])) ? 'in' : '',
 						
 						'sub_menu'=>[
 							[
@@ -90,18 +78,6 @@
 							'adm.groups.edit',
 							'adm.groups.alert',
 						])) ? 'active' : '',
-						'aria-expanded'=>(in_array($action, [
-							'adm.groups.list',
-							'adm.groups.new',
-							'adm.groups.edit',
-							'adm.groups.alert',
-						])) ? 'true' : '',
-						'ul-active'=>(in_array($action, [
-							'adm.groups.list',
-							'adm.groups.new',
-							'adm.groups.edit',
-							'adm.groups.alert',
-						])) ? 'in' : '',
 						
 						'sub_menu'=>[
 							[
@@ -131,18 +107,6 @@
 							'adm.created_permissions.edit',
 							'adm.created_permissions.alert',
 						])) ? 'active' : '',
-						'aria-expanded'=>(in_array($action, [
-							'adm.created_permissions.list',
-							'adm.created_permissions.new',
-							'adm.created_permissions.edit',
-							'adm.created_permissions.alert',
-						])) ? 'true' : '',
-						'ul-active'=>(in_array($action, [
-							'adm.created_permissions.list',
-							'adm.created_permissions.new',
-							'adm.created_permissions.edit',
-							'adm.created_permissions.alert',
-						])) ? 'in' : '',
 						
 						'sub_menu'=>[
 							[
@@ -157,6 +121,81 @@
 							],
 						],
 						'line'=>true,
+					],
+
+					// Vagas
+					[
+						'permission'=>'adm.menu_users',
+						'label'=>'Vagas',
+						'url'=>'#',
+						'link_btn'=>'user_id',
+						'icon'=>'fa fa-th-large',
+	
+						'a-active'=>(in_array($action, [
+							'adm.job_opportunities.list',
+							'adm.job_opportunities.new',
+							'adm.job_opportunities.edit',
+							'adm.job_opportunities.alert'
+						])) ? 'active' : '',
+						
+						'sub_menu'=>[
+							[
+								'label'=>'Lista',
+								'url'=>'adm.job_opportunities.list',
+								'active_page'=>(in_array($action, ['adm.job_opportunities.list'])) ? 'active-page' : '',
+							],
+							[
+								'label'=>'Nova vaga',
+								'url'=>'adm.job_opportunities.new',
+								'active_page'=>(in_array($action, ['adm.job_opportunities.new'])) ? 'active-page' : '',
+							],
+						],
+						'line'=>false,
+					],
+
+					// Config
+					[
+						'permission'=>'adm.menu_users',
+						'label'=>'Registro de usuários',
+						'url'=>'#',
+						'link_btn'=>'user_id',
+						'icon'=>'fa fa-gear',
+	
+						'a-active'=>(in_array($action, [
+							'adm.job_opportunities.list',
+							'adm.job_opportunities.new',
+							'adm.job_opportunities.edit',
+							'adm.job_opportunities.alert'
+						])) ? 'active' : '',
+						
+						'sub_menu'=>[
+							[
+								'label'=>'Moedas disponíveis',
+								'url'=>'adm.job_opportunities.list',
+								'active_page'=>(in_array($action, ['adm.job_opportunities.list'])) ? 'active-page' : '',
+							],
+							[
+								'label'=>'Educação',
+								'url'=>'adm.job_opportunities.list',
+								'active_page'=>(in_array($action, ['adm.job_opportunities.list'])) ? 'active-page' : '',
+							],
+							[
+								'label'=>'Conhecimento da vaga',
+								'url'=>'adm.job_opportunities.list',
+								'active_page'=>(in_array($action, ['adm.job_opportunities.list'])) ? 'active-page' : '',
+							],
+							[
+								'label'=>'Tipos de contrato',
+								'url'=>'adm.job_opportunities.list',
+								'active_page'=>(in_array($action, ['adm.job_opportunities.list'])) ? 'active-page' : '',
+							],
+							[
+								'label'=>'Tipos de curso',
+								'url'=>'adm.job_opportunities.list',
+								'active_page'=>(in_array($action, ['adm.job_opportunities.list'])) ? 'active-page' : '',
+							],
+						],
+						'line'=>false,
 					],
 				];
 
@@ -173,7 +212,6 @@
 						'line'=>true,
 	
 						'a-active'=>(in_array($action, ['adm.index'])) ? 'active' : '',
-						'aria-expanded'=>(in_array($action, ['adm.index'])) ? 'true' : '',
 					],
 				];
 
@@ -189,7 +227,6 @@
 						'line'=>true,
 	
 						'a-active'=>(in_array($action, ['adm.index'])) ? 'active' : '',
-						'aria-expanded'=>(in_array($action, ['adm.index'])) ? 'true' : '',
 					],
 				];
 			}
