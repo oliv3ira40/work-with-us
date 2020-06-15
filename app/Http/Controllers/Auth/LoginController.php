@@ -5,8 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+use App\Helpers\HelpAdmin;
 
 use App\Models\Admin\User;
+use App\Models\Admin\Group;
 
 class LoginController extends Controller
 {
@@ -39,11 +43,26 @@ class LoginController extends Controller
     }
 
     public function newCandidate($email)
-    {   
+    {
         return view('auth.register', compact('email'));
     }
-    public function saveNewCandidate(Request $req)
+    public function saveCandidate(Request $req)
     {
-        dd('saveNewCandidate');
+        $data = $req->all();
+        $candidate_group = Group::where('tag', 'candidate')->first();
+        $credentials = [
+            'email' =>  $data['email'],
+            'password' =>  $data['password'],
+        ];
+        
+        $data['group_id'] = $candidate_group->id;
+        $data['password'] = bcrypt($data['password']);
+        
+        $user = User::Create($data);
+        HelpAdmin::generateUserSettings($user);
+        
+        Auth::attempt($credentials);
+        session()->flash('notification', 'success:Usuário registrado!');
+        return redirect()->route('adm.personal_informations.new');
     }
 }

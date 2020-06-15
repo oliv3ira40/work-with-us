@@ -15,7 +15,7 @@
                     You may also swap <code class="highlighter-rouge">.row</code> for <code class="highlighter-rouge">.form-row</code>, a variation of our standard grid row that overrides the default column gutters for tighter and more compact layouts.
                 </p> --}}
                 
-                {!! Form::open(['url' => route('adm.personal_informations.save')]) !!}
+                {!! Form::open(['url' => route('adm.personal_informations.save'), 'files'=>'true']) !!}
                     <h4 class="m-t-10 mb-0 header-title">Informações pessoais</h4>
                     <div class="form-row m-t-10">
                         <div class="form-group col-md-6">
@@ -59,7 +59,7 @@
                             <label for="rg" class="col-form-label pt-0 p-b-5">RG</label>
 
                             {!! Form::text('perso_information[rg]', null, [
-                                'class'=>'form-control',
+                                'class'=>'form-control mask_rg',
                                 'id'=>'rg'
                             ]) !!}
                         </div>
@@ -67,7 +67,7 @@
                             <label for="cpf" class="col-form-label pt-0 p-b-5">CPF</label>
 
                             {!! Form::text('perso_information[cpf]', null, [
-                                'class'=>'form-control',
+                                'class'=>'form-control mask_cpf',
                                 'id'=>'cpf'
                             ]) !!}
                         </div>
@@ -101,7 +101,7 @@
                             </label>
 
                             {{-- implement mask_telefone --}}
-                            <select multiple data-role="tagsinput" name="phones_for_contacts[telephone]" id="telephone"></select>
+                            <select multiple data-role="tagsinput" name="phones_for_contacts[]" id="telephone"></select>
                         </div>
                     </div>
                     <hr>
@@ -162,9 +162,9 @@
                     <h4 class="m-t-10 mb-0 header-title">Pretensão salarial</h4>
                     <div class="form-row m-t-10">
                         <div class="form-group col-md-6">
-                            <label for="inputEmail4" class="col-form-label pt-0 p-b-5">Moeda</label>
+                            <label for="wages_claims" class="col-form-label pt-0 p-b-5">Moeda</label>
                             
-                            <select class="form-control select2" name="currencies_available[currencie_available_id]">
+                            <select class="form-control select2" name="wages_claims[currencie_available_id]">
                                 @php
                                     $default_currency = $data['currencies_availables']->where('code', 'R$')->first();
                                 @endphp
@@ -239,24 +239,12 @@
                     </div>
                     <hr>
 
-                    {{--
-                        educations
-                        i_still_dont_have_schooling
-                        schooling_available_id
-                        institution
-                        course
-                        type_of_course_id
-                        starting_month
-                        starting_year
-                        conclusion_month
-                        conclusion_year
-                    --}}
                     <h4 class="m-t-10 mb-0 header-title">Educação</h4>
                     <div class="form-row m-t-10">
                         <div class="form-group col-md-6">
                             <label for="schooling_available_id" class="col-form-label pt-0 p-b-5">Escolaridade</label>
 
-                            <select class="form-control select2" name="educations[schooling_available_id]">
+                            <select id="schooling_available_id" class="form-control select2" name="educations[schooling_available_id]">
                                 @foreach ($data['schoolchildrens_availables'] as $schoolchildren_available)
                                     <option value="{{ $schoolchildren_available->id }}" data-compound_register="{{ $schoolchildren_available->compound_register }}">
                                         {{ $schoolchildren_available->name }}
@@ -272,84 +260,95 @@
                                 'id'=>'institution'
                             ]) !!}
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="course" class="col-form-label pt-0 p-b-5">Curso</label>
-                            
-                            {!! Form::text('educations[course]', null, [
-                                'class'=>'form-control',
-                                'id'=>'course'
-                            ]) !!}
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="type_of_course_id" class="col-form-label pt-0 p-b-5">Tipo de curso</label>
-                            <select class="form-control select2" name="educations[type_of_course_id]">
-                                @foreach ($data['types_of_courses_availables'] as $type_of_course_available)
-                                    <option value="{{ $type_of_course_available->id }}">
-                                        {{ $type_of_course_available->name }}    
-                                    </option>                                
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="starting_month" class="col-form-label pt-0 p-b-5">Mês de início</label>
-                            <select id="starting_month" class="form-control select2" name="educations[starting_month]">
-                                <option value="Janeiro">Janeiro</option>
-                                <option value="fevereiro">fevereiro</option>
-                                <option value="Março">Março</option>
-                                <option value="Abril">Abril</option>
-                                <option value="Maio">Maio</option>
-                                <option value="Junho">Junho</option>
-
-                                <option value="Julho">Julho</option>
-                                <option value="Agosto">Agosto</option>
-                                <option value="Setembro">Setembro</option>
-                                <option value="Outubro">Outubro</option>
-                                <option value="Novembro">Novembro</option>
-                                <option value="Dezembro">Dezembro</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="starting_year" class="col-form-label pt-0 p-b-5">Ano de início</label>
-                            <select id="starting_year" class="form-control select2" name="educations[starting_year]">
-                                @for ($i = 0; $i <= 80; $i++)
-                                    @php
-                                        $year = date('Y', strtotime('-'.$i.' year'));
-                                    @endphp
-
-                                    <option value="{{ $year }}">{{ $year }}</option>
-                                @endfor
-                            </select>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="conclusion_month" class="col-form-label pt-0 p-b-5">Mês de conclusão</label>
-                            <select id="conclusion_month" class="form-control select2" name="educations[conclusion_month]">
-                                <option value="Janeiro">Janeiro</option>
-                                <option value="fevereiro">fevereiro</option>
-                                <option value="Março">Março</option>
-                                <option value="Abril">Abril</option>
-                                <option value="Maio">Maio</option>
-                                <option value="Junho">Junho</option>
-
-                                <option value="Julho">Julho</option>
-                                <option value="Agosto">Agosto</option>
-                                <option value="Setembro">Setembro</option>
-                                <option value="Outubro">Outubro</option>
-                                <option value="Novembro">Novembro</option>
-                                <option value="Dezembro">Dezembro</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="conclusion_year" class="col-form-label pt-0 p-b-5">Ano de conclusão
-                            </label>
-                            <select id="conclusion_year" class="form-control select2" name="educations[conclusion_year]">
-                                @for ($i = -6; $i <= 80; $i++)
-                                    @php
-                                        $year = date('Y', strtotime('-'.$i.' year'));
-                                    @endphp
-
-                                    <option value="{{ $year }}">{{ $year }}</option>
-                                @endfor
-                            </select>
+                        <div class="div_compound_register col-md-12" style="display: none;">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="course" class="col-form-label pt-0 p-b-5">Curso</label>
+                                    
+                                    {!! Form::text('educations[course]', null, [
+                                        'class'=>'form-control',
+                                        'id'=>'course'
+                                    ]) !!}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="type_of_course_id" class="col-form-label pt-0 p-b-5">Tipo de curso</label>
+                                    <select class="form-control select2" name="educations[type_of_course_id]">
+                                        <option value="">Selecione...</option>
+                                        @foreach ($data['types_of_courses_availables'] as $type_of_course_available)
+                                            <option value="{{ $type_of_course_available->id }}">
+                                                {{ $type_of_course_available->name }}    
+                                            </option>                                
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-3">
+                                    <label for="starting_month" class="col-form-label pt-0 p-b-5">Mês de início</label>
+                                    <select id="starting_month" class="form-control select2" name="educations[starting_month]">
+                                        <option value="">Selecione...</option>
+                                        <option value="Janeiro">Janeiro</option>
+                                        <option value="fevereiro">fevereiro</option>
+                                        <option value="Março">Março</option>
+                                        <option value="Abril">Abril</option>
+                                        <option value="Maio">Maio</option>
+                                        <option value="Junho">Junho</option>
+        
+                                        <option value="Julho">Julho</option>
+                                        <option value="Agosto">Agosto</option>
+                                        <option value="Setembro">Setembro</option>
+                                        <option value="Outubro">Outubro</option>
+                                        <option value="Novembro">Novembro</option>
+                                        <option value="Dezembro">Dezembro</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="starting_year" class="col-form-label pt-0 p-b-5">Ano de início</label>
+                                    <select id="starting_year" class="form-control select2" name="educations[starting_year]">
+                                        <option value="">Selecione...</option>
+                                        @for ($i = 0; $i <= 80; $i++)
+                                            @php
+                                                $year = date('Y', strtotime('-'.$i.' year'));
+                                            @endphp
+        
+                                            <option value="{{ $year }}">{{ $year }}</option>
+                                        @endfor
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="conclusion_month" class="col-form-label pt-0 p-b-5">Mês de conclusão</label>
+                                    <select id="conclusion_month" class="form-control select2" name="educations[conclusion_month]">
+                                        <option value="">Selecione...</option>
+                                        <option value="Janeiro">Janeiro</option>
+                                        <option value="fevereiro">fevereiro</option>
+                                        <option value="Março">Março</option>
+                                        <option value="Abril">Abril</option>
+                                        <option value="Maio">Maio</option>
+                                        <option value="Junho">Junho</option>
+        
+                                        <option value="Julho">Julho</option>
+                                        <option value="Agosto">Agosto</option>
+                                        <option value="Setembro">Setembro</option>
+                                        <option value="Outubro">Outubro</option>
+                                        <option value="Novembro">Novembro</option>
+                                        <option value="Dezembro">Dezembro</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="conclusion_year" class="col-form-label pt-0 p-b-5">Ano de conclusão
+                                    </label>
+                                    <select id="conclusion_year" class="form-control select2" name="educations[conclusion_year]">
+                                        <option value="">Selecione...</option>
+                                        @for ($i = -6; $i <= 80; $i++)
+                                            @php
+                                                $year = date('Y', strtotime('-'.$i.' year'));
+                                            @endphp
+        
+                                            <option value="{{ $year }}">{{ $year }}</option>
+                                        @endfor
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <hr>
@@ -357,26 +356,28 @@
                     <h4 class="m-t-10 mb-0 header-title">Informações adicionais</h4>
                     <div class="form-row m-t-10">
                         <div class="form-group col-md-12">
-                            <label for="inputEmail4" class="col-form-label pt-0 p-b-5">
+                            <label for="disability_proven_by_medical_report" class="col-form-label pt-0 p-b-5">
                                 Você possui alguma deficiência comprovada por laudo médico?
                             </label>
-                            <select class="form-control select2">
-                                <option value="1">Sim</option>
+                            <select id="disability_proven_by_medical_report" class="form-control select2" name="additionals_informations[disability_proven_by_medical_report]">
                                 <option value="0">Não</option>
+                                <option value="1">Sim</option>
                             </select>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="inputPassword4" class="col-form-label pt-0 p-b-5">
+                            <label for="medical_report_disab_id" class="col-form-label pt-0 p-b-5">
                                 Anexe o seu laudo aqui
                             </label>
-                            <input type="file" class="curriculum" data-max-file-size="2M"/>
+                            <input id="medical_report_disab_id" type="file" class="curriculum" name="additionals_informations[medical_report_path]" data-max-file-size="2M"/>
                         </div>
                         <div class="form-group col-md-12">
-                            <label for="inputPassword4" class="col-form-label pt-0 p-b-5">
+                            <label for="mean_public_vacancie_id" class="col-form-label pt-0 p-b-5">
                                 Como você ficou sabendo desta vaga?
                             </label>
-                            <select class="form-control select2">
-                                <option value="HI">Selecione</option>
+                            <select id="mean_public_vacancie_id" class="form-control select2" name="additionals_informations[mean_public_vacancie_id]">
+                                @foreach ($data['mean_of_publicizing_vagancy'] as $value)
+                                    <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>

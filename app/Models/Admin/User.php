@@ -19,6 +19,7 @@ class User extends Authenticatable
      */
     protected $table = 'users';
     protected $fillable = [
+        'personal_information_id',
         'first_name',
         'last_name',
         'login',
@@ -27,9 +28,9 @@ class User extends Authenticatable
         'cpf',
         'date_of_birth',
         'password',
+        'deleted_at',
         'group_id',
-        'avatar_id',
-        'deleted_at'
+        'avatar_id'
     ];
     
     protected $hidden = [
@@ -66,5 +67,10 @@ class User extends Authenticatable
     public function Avatar()
     {
         return $this->belongsTo(Avatar::class, 'avatar_id');
+    }
+
+    function PersonalInformation()
+    {
+        return $this->belongsTo(PersoInformation\PersonalInformation::class, 'personal_information_id');
     }
 }

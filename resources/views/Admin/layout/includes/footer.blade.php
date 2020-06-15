@@ -129,6 +129,9 @@
         <!--form wysiwig js-->
         <script src="{{ asset('admin/assets/plugins/tinymce/tinymce.min.js') }}"></script>
 
+        <!-- jquery-mask-plugin -->
+        <script src="{{ asset('node_modules/jquery-mask-plugin/dist/jquery.mask.js') }}"></script>
+
         <!-- App js -->
         <script src="{{ asset('admin/assets/js/jquery.core.js') }}"></script>
         <script src="{{ asset('admin/assets/js/jquery.app.js') }}"></script>
@@ -137,7 +140,7 @@
         <script src="{{ asset('plugins/mask-money/mask-money.min.js') }}"></script>
 
         <script src="{{ asset('js/plugins/data_tables.js') }}"></script>
-        
+
         <script src="{{ asset('js/utilities/masks.js') }}"></script>
         <script src="{{ asset('js/utilities/via_cep.js') }}"></script>
         <script src="{{ asset('js/utilities/config_file_uploads.js') }}"></script>
@@ -149,10 +152,9 @@
         <script src="{{ asset('js/notifications.js') }}"></script>
         
         <script src="{{ asset('js/user_settings/btn_dark_mode.js') }}"></script>
-
         <script src="{{ asset('js/avatars/change_avatar.js') }}"></script>
-
         <script src="{{ asset('js/address/get_cities_by_state.js') }}"></script>
+        <script src="{{ asset('js/candidate_registration/select_schooling_available.js') }}"></script>
         {{-- My js --}}
     </body>
 </html>

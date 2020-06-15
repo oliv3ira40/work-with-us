@@ -127,109 +127,109 @@ Route::group(['middleware' => 'VerifyUserPermissions'], function(){
             // CurrencyAvailable
 
             // Education
-                Route::get('moedas-disponiveis',
+                Route::get('educacao-lista',
                     'Admin\Jobs\EducationController@list')
                     ->name('adm.education.list');
 
-                Route::get('moedas-cadastro',
+                Route::get('educacao-cadastro',
                     'Admin\Jobs\EducationController@new')
                     ->name('adm.education.new');
-                Route::post('moedas-save',
+                Route::post('educacao-save',
                     'Admin\Jobs\EducationController@save')
                     ->name('adm.education.save');
 
-                Route::get('moedas-edicao/{id}',
+                Route::get('educacao-edicao/{id}',
                     'Admin\Jobs\EducationController@edit')
                     ->name('adm.education.edit');
-                Route::post('moedas-update',
+                Route::post('educacao-update',
                     'Admin\Jobs\EducationController@update')
                     ->name('adm.education.update');
 
-                Route::get('moedas-alerta/{id}',
+                Route::get('educacao-alerta/{id}',
                     'Admin\Jobs\EducationController@alert')
                     ->name('adm.education.alert');
-                Route::post('moedas-delete',
+                Route::post('educacao-delete',
                     'Admin\Jobs\EducationController@alert')
                     ->name('adm.education.delete');
             // Education
             
             // MeanOfPublicizingVagancy
-                Route::get('moedas-disponiveis',
+                Route::get('publicacao-de-vagas-lista',
                     'Admin\Jobs\MeanOfPublVagController@list')
                     ->name('adm.mean_of_publ_vag.list');
 
-                Route::get('moedas-cadastro',
+                Route::get('publicacao-de-vagas-cadastro',
                     'Admin\Jobs\MeanOfPublVagController@new')
                     ->name('adm.mean_of_publ_vag.new');
-                Route::post('moedas-save',
+                Route::post('publicacao-de-vagas-save',
                     'Admin\Jobs\MeanOfPublVagController@save')
                     ->name('adm.mean_of_publ_vag.save');
 
-                Route::get('moedas-edicao/{id}',
+                Route::get('publicacao-de-vagas-edicao/{id}',
                     'Admin\Jobs\MeanOfPublVagController@edit')
                     ->name('adm.mean_of_publ_vag.edit');
-                Route::post('moedas-update',
+                Route::post('publicacao-de-vagas-update',
                     'Admin\Jobs\MeanOfPublVagController@update')
                     ->name('adm.mean_of_publ_vag.update');
 
-                Route::get('moedas-alerta/{id}',
+                Route::get('publicacao-de-vagas-alerta/{id}',
                     'Admin\Jobs\MeanOfPublVagController@alert')
                     ->name('adm.mean_of_publ_vag.alert');
-                Route::post('moedas-delete',
+                Route::post('publicacao-de-vagas-delete',
                     'Admin\Jobs\MeanOfPublVagController@alert')
                     ->name('adm.mean_of_publ_vag.delete');
             // MeanOfPublicizingVagancy
             
             // TypeOfContractAvailable
-                Route::get('moedas-disponiveis',
+                Route::get('tipos-contratos-disponiveis',
                     'Admin\Jobs\TypeOfContAvailController@list')
                     ->name('adm.type_of_cont_avail.list');
 
-                Route::get('moedas-cadastro',
+                Route::get('tipos-contratos-cadastro',
                     'Admin\Jobs\TypeOfContAvailController@new')
                     ->name('adm.type_of_cont_avail.new');
-                Route::post('moedas-save',
+                Route::post('tipos-contratos-save',
                     'Admin\Jobs\TypeOfContAvailController@save')
                     ->name('adm.type_of_cont_avail.save');
 
-                Route::get('moedas-edicao/{id}',
+                Route::get('tipos-contratos-edicao/{id}',
                     'Admin\Jobs\TypeOfContAvailController@edit')
                     ->name('adm.type_of_cont_avail.edit');
-                Route::post('moedas-update',
+                Route::post('tipos-contratos-update',
                     'Admin\Jobs\TypeOfContAvailController@update')
                     ->name('adm.type_of_cont_avail.update');
 
-                Route::get('moedas-alerta/{id}',
+                Route::get('tipos-contratos-alerta/{id}',
                     'Admin\Jobs\TypeOfContAvailController@alert')
                     ->name('adm.type_of_cont_avail.alert');
-                Route::post('moedas-delete',
+                Route::post('tipos-contratos-delete',
                     'Admin\Jobs\TypeOfContAvailController@alert')
                     ->name('adm.type_of_cont_avail.delete');
             // TypeOfContractAvailable
             
             // TypeOfCourseAvailable
-                Route::get('moedas-disponiveis',
+                Route::get('tipos-cursos-disponiveis',
                     'Admin\Jobs\TypeCoursAvailController@list')
                     ->name('adm.type_cours_avail.list');
 
-                Route::get('moedas-cadastro',
+                Route::get('tipos-cursos-cadastro',
                     'Admin\Jobs\TypeCoursAvailController@new')
                     ->name('adm.type_cours_avail.new');
-                Route::post('moedas-save',
+                Route::post('tipos-cursos-save',
                     'Admin\Jobs\TypeCoursAvailController@save')
                     ->name('adm.type_cours_avail.save');
 
-                Route::get('moedas-edicao/{id}',
+                Route::get('tipos-cursos-edicao/{id}',
                     'Admin\Jobs\TypeCoursAvailController@edit')
                     ->name('adm.type_cours_avail.edit');
-                Route::post('moedas-update',
+                Route::post('tipos-cursos-update',
                     'Admin\Jobs\TypeCoursAvailController@update')
                     ->name('adm.type_cours_avail.update');
 
-                Route::get('moedas-alerta/{id}',
+                Route::get('tipos-cursos-alerta/{id}',
                     'Admin\Jobs\TypeCoursAvailController@alert')
                     ->name('adm.type_cours_avail.alert');
-                Route::post('moedas-delete',
+                Route::post('tipos-cursos-delete',
                     'Admin\Jobs\TypeCoursAvailController@alert')
                     ->name('adm.type_cours_avail.delete');
             // TypeOfCourseAvailable
@@ -240,9 +240,12 @@ Route::group(['middleware' => 'VerifyUserPermissions'], function(){
     Route::get('/sem-permissao', 'Admin\AdminController@withoutPermission')->name('adm.withoutPermission');
 
     Auth::routes();
-    Route::post('check_email', 'Auth\LoginCOntroller@checkEmail')->name('adm.check_email');
     
-    Route::get('bem-vindo-de-volta/{id}', 'Auth\LoginCOntroller@welcomeBack')->name('adm.welcome_back');
+    Route::post('check_email', 'Auth\LoginCOntroller@checkEmail')->name('adm.check_email');
+    Route::get('bem-vindo-de-volta/{id}', 'Auth\LoginController@welcomeBack')->name('adm.welcome_back');
+    
+    Route::get('novo-candidato/{email}', 'Auth\LoginController@newCandidate')->name('adm.new_candidate');
+    Route::post('save-candidate', 'Auth\LoginController@saveCandidate')->name('adm.save_candidate');
 
     // AUTH
         Route::get('esqueci-a-senha', 'Admin\ResetPasswordController@resetPassword')->name('adm.reset_password');

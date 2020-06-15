@@ -125,10 +125,10 @@
 
 					// Vagas
 					[
-						'permission'=>'adm.menu_users',
+						'permission'=>'adm.jobs',
 						'label'=>'Vagas',
 						'url'=>'#',
-						'link_btn'=>'user_id',
+						'link_btn'=>'jobs_id',
 						'icon'=>'fa fa-th-large',
 	
 						'a-active'=>(in_array($action, [
@@ -155,44 +155,45 @@
 
 					// Config
 					[
-						'permission'=>'adm.menu_users',
+						'permission'=>'adm.user_registration',
 						'label'=>'Registro de usuários',
 						'url'=>'#',
-						'link_btn'=>'user_id',
+						'link_btn'=>'user_registration_id',
 						'icon'=>'fa fa-gear',
 	
 						'a-active'=>(in_array($action, [
-							'adm.job_opportunities.list',
-							'adm.job_opportunities.new',
-							'adm.job_opportunities.edit',
-							'adm.job_opportunities.alert'
+							'adm.currency_available.list',
+							'adm.education.list',
+							'adm.mean_of_publ_vag.list',
+							'adm.type_of_cont_avail.list',
+							'adm.type_cours_avail.list'
 						])) ? 'active' : '',
 						
 						'sub_menu'=>[
 							[
 								'label'=>'Moedas disponíveis',
-								'url'=>'adm.job_opportunities.list',
-								'active_page'=>(in_array($action, ['adm.job_opportunities.list'])) ? 'active-page' : '',
+								'url'=>'adm.currency_available.list',
+								'active_page'=>(in_array($action, ['adm.currency_available.list'])) ? 'active-page' : '',
 							],
 							[
 								'label'=>'Educação',
-								'url'=>'adm.job_opportunities.list',
-								'active_page'=>(in_array($action, ['adm.job_opportunities.list'])) ? 'active-page' : '',
+								'url'=>'adm.education.list',
+								'active_page'=>(in_array($action, ['adm.education.list'])) ? 'active-page' : '',
 							],
 							[
 								'label'=>'Conhecimento da vaga',
-								'url'=>'adm.job_opportunities.list',
-								'active_page'=>(in_array($action, ['adm.job_opportunities.list'])) ? 'active-page' : '',
+								'url'=>'adm.mean_of_publ_vag.list',
+								'active_page'=>(in_array($action, ['adm.mean_of_publ_vag.list'])) ? 'active-page' : '',
 							],
 							[
 								'label'=>'Tipos de contrato',
-								'url'=>'adm.job_opportunities.list',
-								'active_page'=>(in_array($action, ['adm.job_opportunities.list'])) ? 'active-page' : '',
+								'url'=>'adm.type_of_cont_avail.list',
+								'active_page'=>(in_array($action, ['adm.type_of_cont_avail.list'])) ? 'active-page' : '',
 							],
 							[
 								'label'=>'Tipos de curso',
-								'url'=>'adm.job_opportunities.list',
-								'active_page'=>(in_array($action, ['adm.job_opportunities.list'])) ? 'active-page' : '',
+								'url'=>'adm.type_cours_avail.list',
+								'active_page'=>(in_array($action, ['adm.type_cours_avail.list'])) ? 'active-page' : '',
 							],
 						],
 						'line'=>false,

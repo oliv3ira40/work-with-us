@@ -85,6 +85,20 @@
 			}
 			return false;
 		}
+		public static function IsUserCandidate($user = null)
+		{
+			if ($user == null)
+			{
+				$user = \Auth::user();
+			}
+
+			$group = $user->Group;
+			if ($group->tag == 'candidate')
+			{
+				return true;
+			}
+			return false;
+		}
 		
 
 		public static function prepareNotification($notification)

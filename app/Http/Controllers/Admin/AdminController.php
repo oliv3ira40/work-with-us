@@ -15,6 +15,8 @@ use App\Models\Admin\User;
 use App\Models\Admin\Group;
 use App\Models\Admin\CreatedPermission;
 
+use App\Models\Admin\Jobs\JobOpportunity;
+
 use App\Jobs\Admin\NotificationCalled;
 use Carbon\Carbon;
 use PhpParser\Node\Stmt\Foreach_;
@@ -45,6 +47,16 @@ class AdminController extends Controller
         } elseif (HelpAdmin::IsUserAdministrator())
         {
             return redirect()->route('adm.administrator.index');
+
+        } elseif (HelpAdmin::IsUserCandidate())
+        {
+            if (\Auth::user()->PersonalInformation == null) {
+                return redirect()->route('adm.personal_informations.new');
+            } else {
+                $data['jobs'] = JobOpportunity::orderBy('created_at', 'desc')->get();
+
+                return view('Admin.candidate_index', compact('data'));
+            }
 
         } else {
             return view('Admin.index');

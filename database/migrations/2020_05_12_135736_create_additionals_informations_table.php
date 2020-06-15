@@ -16,8 +16,8 @@ class CreateAdditionalsInformationsTable extends Migration
         Schema::create('additionals_informations', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->tinyInteger('disability_proven_by_medical_report');
-            // {medical_report_disab_id}
+            $table->tinyInteger('disability_proven_by_medical_report')->nullable();
+            $table->string('medical_report_path', 250)->nullable();
             // {mean_public_vacancie_id}
 
             $table->timestamps();

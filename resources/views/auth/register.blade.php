@@ -10,7 +10,7 @@
         </div>
 
         <div class="p-20 p-t-10 p-b-10">
-            {!! Form::open(['url'=>route('register'), 'class'=>'form-horizontal mt-0']) !!}
+            {!! Form::open(['url'=>route('adm.save_candidate'), 'class'=>'form-horizontal mt-0']) !!}
                 <div class="form-group row">
                     <div class="col-md-6">
                         <label for="first_name">
@@ -49,7 +49,7 @@
                                 </small>
                             @endif
                         </label>
-                        {!! Form::email('email', null, ['class'=>'form-control', 'id'=>'email']) !!}
+                        {!! Form::email('email', $email, ['class'=>'form-control', 'id'=>'email']) !!}
                     </div>
                 </div>
 

@@ -34,6 +34,12 @@ $(function() {
         mask_cpf.mask('000.000.000-00');
     }
 
+    var mask_rg = $(".mask_rg");
+    if (mask_rg.length > 0)
+    {
+        mask_rg.mask('00.000.000-000');
+    }
+
     var mask_cnpj = $(".mask_cnpj");
     if (mask_cnpj.length > 0)
     {

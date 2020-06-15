@@ -10,11 +10,10 @@ class Address extends Model
     protected $fillable = [
         'country',
         'zip_code',
+        'state',
+        'city',
         'street',
         'neighborhood',
-        'number',
-        'complement',
-        'available_state_id',
-        'city',
+        'complement'
     ];
 }

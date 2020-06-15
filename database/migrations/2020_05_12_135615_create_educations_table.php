@@ -16,15 +16,15 @@ class CreateEducationsTable extends Migration
         Schema::create('educations', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->tinyInteger('i_still_dont_have_schooling');
+            $table->tinyInteger('i_still_dont_have_schooling')->nullable();
             // {schooling_available_id}
-            $table->string('institution', 150);
-            $table->string('course', 150);
+            $table->string('institution', 150)->nullable();
+            $table->string('course', 150)->nullable();
             // {type_of_course_id}
-            $table->string('starting_month', 10);
-            $table->string('starting_year', 10);
-            $table->string('conclusion_month', 10);
-            $table->string('conclusion_year', 10);
+            $table->string('starting_month', 10)->nullable();
+            $table->string('starting_year', 10)->nullable();
+            $table->string('conclusion_month', 10)->nullable();
+            $table->string('conclusion_year', 10)->nullable();
 
             $table->timestamps();
             $table->softDeletes();
