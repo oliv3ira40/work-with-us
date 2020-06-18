@@ -101,140 +101,140 @@ Route::group(['middleware' => 'VerifyUserPermissions'], function(){
 
             // CurrencyAvailable
                 Route::get('moedas-disponiveis',
-                'Admin\Jobs\CurrencyAvailableController@list')
+                'Admin\PersoInformation\CurrencyAvailableController@list')
                 ->name('adm.currency_available.list');
 
                 Route::get('moedas-cadastro',
-                    'Admin\Jobs\CurrencyAvailableController@new')
+                    'Admin\PersoInformation\CurrencyAvailableController@new')
                     ->name('adm.currency_available.new');
                 Route::post('moedas-save',
-                    'Admin\Jobs\CurrencyAvailableController@save')
+                    'Admin\PersoInformation\CurrencyAvailableController@save')
                     ->name('adm.currency_available.save');
 
                 Route::get('moedas-edicao/{id}',
-                    'Admin\Jobs\CurrencyAvailableController@edit')
+                    'Admin\PersoInformation\CurrencyAvailableController@edit')
                     ->name('adm.currency_available.edit');
                 Route::post('moedas-update',
-                    'Admin\Jobs\CurrencyAvailableController@update')
+                    'Admin\PersoInformation\CurrencyAvailableController@update')
                     ->name('adm.currency_available.update');
 
                 Route::get('moedas-alerta/{id}',
-                    'Admin\Jobs\CurrencyAvailableController@alert')
+                    'Admin\PersoInformation\CurrencyAvailableController@alert')
                     ->name('adm.currency_available.alert');
                 Route::post('moedas-delete',
-                    'Admin\Jobs\CurrencyAvailableController@alert')
+                    'Admin\PersoInformation\CurrencyAvailableController@delete')
                     ->name('adm.currency_available.delete');
             // CurrencyAvailable
 
-            // Education
-                Route::get('educacao-lista',
-                    'Admin\Jobs\EducationController@list')
-                    ->name('adm.education.list');
+            // SchoolingsAvailables
+                Route::get('niveis-escolares-lista',
+                    'Admin\PersoInformation\SchoolingAvailableController@list')
+                    ->name('adm.schoolings_availables.list');
 
-                Route::get('educacao-cadastro',
-                    'Admin\Jobs\EducationController@new')
-                    ->name('adm.education.new');
-                Route::post('educacao-save',
-                    'Admin\Jobs\EducationController@save')
-                    ->name('adm.education.save');
+                Route::get('niveis-escolares-cadastro',
+                    'Admin\PersoInformation\SchoolingAvailableController@new')
+                    ->name('adm.schoolings_availables.new');
+                Route::post('niveis-escolares-save',
+                    'Admin\PersoInformation\SchoolingAvailableController@save')
+                    ->name('adm.schoolings_availables.save');
 
-                Route::get('educacao-edicao/{id}',
-                    'Admin\Jobs\EducationController@edit')
-                    ->name('adm.education.edit');
-                Route::post('educacao-update',
-                    'Admin\Jobs\EducationController@update')
-                    ->name('adm.education.update');
+                Route::get('niveis-escolares-edicao/{id}',
+                    'Admin\PersoInformation\SchoolingAvailableController@edit')
+                    ->name('adm.schoolings_availables.edit');
+                Route::post('niveis-escolares-update',
+                    'Admin\PersoInformation\SchoolingAvailableController@update')
+                    ->name('adm.schoolings_availables.update');
 
-                Route::get('educacao-alerta/{id}',
-                    'Admin\Jobs\EducationController@alert')
-                    ->name('adm.education.alert');
-                Route::post('educacao-delete',
-                    'Admin\Jobs\EducationController@alert')
-                    ->name('adm.education.delete');
-            // Education
-            
+                Route::get('niveis-escolares-alerta/{id}',
+                    'Admin\PersoInformation\SchoolingAvailableController@alert')
+                    ->name('adm.schoolings_availables.alert');
+                Route::post('niveis-escolares-delete',
+                    'Admin\PersoInformation\SchoolingAvailableController@delete')
+                    ->name('adm.schoolings_availables.delete');
+            // SchoolingsAvailables
+
             // MeanOfPublicizingVagancy
                 Route::get('publicacao-de-vagas-lista',
-                    'Admin\Jobs\MeanOfPublVagController@list')
+                    'Admin\PersoInformation\MeanOfPublVagController@list')
                     ->name('adm.mean_of_publ_vag.list');
 
                 Route::get('publicacao-de-vagas-cadastro',
-                    'Admin\Jobs\MeanOfPublVagController@new')
+                    'Admin\PersoInformation\MeanOfPublVagController@new')
                     ->name('adm.mean_of_publ_vag.new');
                 Route::post('publicacao-de-vagas-save',
-                    'Admin\Jobs\MeanOfPublVagController@save')
+                    'Admin\PersoInformation\MeanOfPublVagController@save')
                     ->name('adm.mean_of_publ_vag.save');
 
                 Route::get('publicacao-de-vagas-edicao/{id}',
-                    'Admin\Jobs\MeanOfPublVagController@edit')
+                    'Admin\PersoInformation\MeanOfPublVagController@edit')
                     ->name('adm.mean_of_publ_vag.edit');
                 Route::post('publicacao-de-vagas-update',
-                    'Admin\Jobs\MeanOfPublVagController@update')
+                    'Admin\PersoInformation\MeanOfPublVagController@update')
                     ->name('adm.mean_of_publ_vag.update');
 
                 Route::get('publicacao-de-vagas-alerta/{id}',
-                    'Admin\Jobs\MeanOfPublVagController@alert')
+                    'Admin\PersoInformation\MeanOfPublVagController@alert')
                     ->name('adm.mean_of_publ_vag.alert');
                 Route::post('publicacao-de-vagas-delete',
-                    'Admin\Jobs\MeanOfPublVagController@alert')
+                    'Admin\PersoInformation\MeanOfPublVagController@delete')
                     ->name('adm.mean_of_publ_vag.delete');
             // MeanOfPublicizingVagancy
-            
+
             // TypeOfContractAvailable
                 Route::get('tipos-contratos-disponiveis',
-                    'Admin\Jobs\TypeOfContAvailController@list')
+                    'Admin\PersoInformation\TypeOfContAvailController@list')
                     ->name('adm.type_of_cont_avail.list');
 
                 Route::get('tipos-contratos-cadastro',
-                    'Admin\Jobs\TypeOfContAvailController@new')
+                    'Admin\PersoInformation\TypeOfContAvailController@new')
                     ->name('adm.type_of_cont_avail.new');
                 Route::post('tipos-contratos-save',
-                    'Admin\Jobs\TypeOfContAvailController@save')
+                    'Admin\PersoInformation\TypeOfContAvailController@save')
                     ->name('adm.type_of_cont_avail.save');
 
                 Route::get('tipos-contratos-edicao/{id}',
-                    'Admin\Jobs\TypeOfContAvailController@edit')
+                    'Admin\PersoInformation\TypeOfContAvailController@edit')
                     ->name('adm.type_of_cont_avail.edit');
                 Route::post('tipos-contratos-update',
-                    'Admin\Jobs\TypeOfContAvailController@update')
+                    'Admin\PersoInformation\TypeOfContAvailController@update')
                     ->name('adm.type_of_cont_avail.update');
 
                 Route::get('tipos-contratos-alerta/{id}',
-                    'Admin\Jobs\TypeOfContAvailController@alert')
+                    'Admin\PersoInformation\TypeOfContAvailController@alert')
                     ->name('adm.type_of_cont_avail.alert');
                 Route::post('tipos-contratos-delete',
-                    'Admin\Jobs\TypeOfContAvailController@alert')
+                    'Admin\PersoInformation\TypeOfContAvailController@delete')
                     ->name('adm.type_of_cont_avail.delete');
             // TypeOfContractAvailable
-            
+
             // TypeOfCourseAvailable
                 Route::get('tipos-cursos-disponiveis',
-                    'Admin\Jobs\TypeCoursAvailController@list')
+                    'Admin\PersoInformation\TypeCoursAvailController@list')
                     ->name('adm.type_cours_avail.list');
 
                 Route::get('tipos-cursos-cadastro',
-                    'Admin\Jobs\TypeCoursAvailController@new')
+                    'Admin\PersoInformation\TypeCoursAvailController@new')
                     ->name('adm.type_cours_avail.new');
                 Route::post('tipos-cursos-save',
-                    'Admin\Jobs\TypeCoursAvailController@save')
+                    'Admin\PersoInformation\TypeCoursAvailController@save')
                     ->name('adm.type_cours_avail.save');
 
                 Route::get('tipos-cursos-edicao/{id}',
-                    'Admin\Jobs\TypeCoursAvailController@edit')
+                    'Admin\PersoInformation\TypeCoursAvailController@edit')
                     ->name('adm.type_cours_avail.edit');
                 Route::post('tipos-cursos-update',
-                    'Admin\Jobs\TypeCoursAvailController@update')
+                    'Admin\PersoInformation\TypeCoursAvailController@update')
                     ->name('adm.type_cours_avail.update');
 
                 Route::get('tipos-cursos-alerta/{id}',
-                    'Admin\Jobs\TypeCoursAvailController@alert')
+                    'Admin\PersoInformation\TypeCoursAvailController@alert')
                     ->name('adm.type_cours_avail.alert');
                 Route::post('tipos-cursos-delete',
-                    'Admin\Jobs\TypeCoursAvailController@alert')
+                    'Admin\PersoInformation\TypeCoursAvailController@delete')
                     ->name('adm.type_cours_avail.delete');
             // TypeOfCourseAvailable
         // personalInformations
-        
+
     });	/*Fecha grupo de verificação de permissões*/
         
     Route::get('/sem-permissao', 'Admin\AdminController@withoutPermission')->name('adm.withoutPermission');

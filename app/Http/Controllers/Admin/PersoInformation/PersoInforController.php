@@ -17,7 +17,7 @@ use App\Models\Admin\PersoInformation\AdditionalInformation;
 use App\Models\Admin\PersoInformation\Curriculum;
 
 use App\Models\Admin\PersoInformation\CurrencyAvailable;
-use App\Models\Admin\PersoInformation\SchoolchildrenAvailable;
+use App\Models\Admin\PersoInformation\SchoolingAvailable;
 use App\Models\Admin\PersoInformation\TypeOfCourseAvailable;
 use App\Models\Admin\PersoInformation\MeanOfPublicizingVagancy;
 
@@ -34,7 +34,7 @@ class PersoInforController extends Controller
     {
         $data['user'] = \Auth::user();
         $data['currencies_availables'] = CurrencyAvailable::all();
-        $data['schoolchildrens_availables'] = SchoolchildrenAvailable::all();
+        $data['schoolchildrens_availables'] = SchoolingAvailable::all();
         $data['types_of_courses_availables'] = TypeOfCourseAvailable::all();
         $data['mean_of_publicizing_vagancy'] = MeanOfPublicizingVagancy::all();
 

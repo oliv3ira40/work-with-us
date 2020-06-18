@@ -163,7 +163,7 @@
 	
 						'a-active'=>(in_array($action, [
 							'adm.currency_available.list',
-							'adm.education.list',
+							'adm.schoolings_availables.list',
 							'adm.mean_of_publ_vag.list',
 							'adm.type_of_cont_avail.list',
 							'adm.type_cours_avail.list'
@@ -176,9 +176,9 @@
 								'active_page'=>(in_array($action, ['adm.currency_available.list'])) ? 'active-page' : '',
 							],
 							[
-								'label'=>'Educação',
-								'url'=>'adm.education.list',
-								'active_page'=>(in_array($action, ['adm.education.list'])) ? 'active-page' : '',
+								'label'=>'Escolararidades disponíveis',
+								'url'=>'adm.schoolings_availables.list',
+								'active_page'=>(in_array($action, ['adm.schoolings_availables.list'])) ? 'active-page' : '',
 							],
 							[
 								'label'=>'Conhecimento da vaga',
