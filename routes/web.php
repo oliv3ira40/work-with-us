@@ -95,8 +95,14 @@ Route::group(['middleware' => 'VerifyUserPermissions'], function(){
                 ->name('adm.job_opportunities.detail');
         // JobOpportunity
 
-        // ApplicationOfVacancie
-        // ApplicationOfVacancie
+        // JobApplication
+            Route::get('inscricoes-vagas/confirmacao/{job_id}',
+                'Admin\Jobs\JobApplicationController@confirmation')
+                ->name('adm.job_applications.confirmation');
+            Route::get('inscricoes-vagas/save-confirmation/{job_id}',
+                'Admin\Jobs\JobApplicationController@saveConfirmation')
+                ->name('adm.job_applications.save_confirmation');
+        // JobApplication
 
         // personalInformations
             Route::get('informacoes-pessoais/cadastro',

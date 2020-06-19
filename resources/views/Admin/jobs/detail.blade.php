@@ -51,10 +51,12 @@
                 
                 <div class="row">
                     <div class="col-sm-12">
-                        <div class="text-right m-t-30">
-                            <button type="submit" class="btn btn-block btn-primary waves-effect waves-light font-600">
-                                Inscreva-se
-                            </button>
+                        <div class="text-right m-t-20">
+                            @if (in_array('adm.job_applications.confirmation', HelpAdmin::PermissionsUser()))
+                                <a href="{{ route('adm.job_applications.confirmation', $job->id) }}" class="btn btn-block btn-success waves-effect waves-light font-600">
+                                    Inscreva-se
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>
