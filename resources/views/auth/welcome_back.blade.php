@@ -12,16 +12,10 @@
             {!! Form::hidden('email', $user->email) !!}
 
             <div class="user-thumb">
-                @if ($user->Avatar != null)
-                    <img src="{{ asset($user->Avatar->path) }}" alt="user-img" title="{{ HelpAdmin::completName($user) }}" class="img-fluid rounded-circle img-thumbnail" alt="thumbnail">
-                    <p class="text-uppercase font-bold m-b-0">
-                        {{ HelpAdmin::completName($user) }}
-                    </p>
-                @else
-                    <p class="text-uppercase font-bold m-b-0">
-                        {{ HelpAdmin::completName($user) }}
-                    </p>
-                @endif
+                <img src="{{ asset(HelpAdmin::getAvatarUser($user)) }}" alt="user-img" title="{{ HelpAdmin::completName($user) }}" class="img-fluid rounded-circle img-thumbnail" alt="thumbnail">
+                <p class="text-uppercase font-bold m-b-0">
+                    {{ HelpAdmin::completName($user) }}
+                </p>
             </div>
             <div class="form-group">
                 <p class="text-muted m-t-10">

@@ -125,7 +125,7 @@
 
 					// Vagas
 					[
-						'permission'=>'adm.jobs',
+						'permission'=>'adm.menu_jobs',
 						'label'=>'Vagas',
 						'url'=>'#',
 						'link_btn'=>'jobs_id',
@@ -213,6 +213,44 @@
 						'line'=>true,
 	
 						'a-active'=>(in_array($action, ['adm.index'])) ? 'active' : '',
+					],
+				];
+
+			} elseif (HelpAdmin::IsUserCandidate())
+			{
+				
+				return [
+					// Página inicial
+					[
+						'permission'=>'adm.index',
+						'label'=>'Página inicial',
+						'url'=>'adm.index',
+						'icon'=>'fa fa-home',
+						'line'=>true,
+	
+						'a-active'=>(in_array($action, ['adm.index'])) ? 'active' : '',
+					],
+
+					// Vagas
+					[
+						'permission'=>'adm.menu_jobs',
+						'label'=>'Vagas',
+						'url'=>'#',
+						'link_btn'=>'jobs_id',
+						'icon'=>'fa fa-th-large',
+
+						'a-active'=>(in_array($action, [
+							'adm.job_opportunities.list',
+						])) ? 'active' : '',
+						
+						'sub_menu'=>[
+							[
+								'label'=>'Lista',
+								'url'=>'adm.job_opportunities.list',
+								'active_page'=>(in_array($action, ['adm.job_opportunities.list'])) ? 'active-page' : '',
+							],
+						],
+						'line'=>false,
 					],
 				];
 

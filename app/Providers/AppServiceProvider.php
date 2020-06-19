@@ -26,5 +26,6 @@ class AppServiceProvider extends ServiceProvider
         \Schema::defaultStringLength(191);
         setlocale(LC_ALL, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
         setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+        // setlocale(LC_TIME, 'pt-br');
     }
 }

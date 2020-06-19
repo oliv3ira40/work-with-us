@@ -89,7 +89,14 @@ Route::group(['middleware' => 'VerifyUserPermissions'], function(){
             Route::post('vagas-delete',
                 'Admin\Jobs\JobOpportunityController@delete')
                 ->name('adm.job_opportunities.delete');
+
+            Route::get('vagas-detalhes/{id}',
+                'Admin\Jobs\JobOpportunityController@detail')
+                ->name('adm.job_opportunities.detail');
         // JobOpportunity
+
+        // ApplicationOfVacancie
+        // ApplicationOfVacancie
 
         // personalInformations
             Route::get('informacoes-pessoais/cadastro',

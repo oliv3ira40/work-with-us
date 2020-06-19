@@ -36,6 +36,10 @@
                                 </td>
                                 <td class="font-bold">{{ $job->created_at->format('d-m-Y H:i') }}</td>
                                 <td>
+                                    @if (in_array('adm.job_opportunities.detail', HelpAdmin::PermissionsUser()))
+                                        <a href="{{ route('adm.job_opportunities.detail', $job->id) }}" class="my-btn btn btn-xs btn-trans btn-info">Detalhes</a>
+                                    @endif
+                                    
                                     @if (in_array('adm.job_opportunities.edit', HelpAdmin::PermissionsUser()))
                                         <a href="{{ route('adm.job_opportunities.edit', $job->id) }}" class="my-btn btn btn-xs btn-trans btn-warning">Editar</a>
                                     @endif

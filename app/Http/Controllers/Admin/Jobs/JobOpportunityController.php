@@ -89,4 +89,11 @@ class JobOpportunityController extends Controller
         session()->flash('notification', 'success:Vaga excluída!');
         return redirect()->route('adm.job_opportunities.list');
     }
+
+    public function detail($id)
+    {
+        $job = JobOpportunity::find($id);
+
+        return view('Admin.jobs.detail', compact('job'));
+    }
 }

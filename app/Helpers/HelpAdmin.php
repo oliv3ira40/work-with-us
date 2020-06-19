@@ -165,4 +165,25 @@
 			}
 			return false;
 		}
+
+		public static function getAvatarUser($user = null)
+		{
+			if ($user == null) {
+				$user = \Auth::user();
+			}
+
+			if (HelpAdmin::IsUserCandidate($user)) {
+				if ($user->PersonalInformation != null) {
+					return  HelpAdmin::getStorageUrl().$user->PersonalInformation->path_profile_picture;
+				} else {
+					return 'assets/icons/6.png';
+				}
+			} else {
+				if ($user->Avatar) {
+					return $user->Avatar->path;
+				} else {
+					return 'assets/icons/6.png';
+				}
+			}
+		}
 	}

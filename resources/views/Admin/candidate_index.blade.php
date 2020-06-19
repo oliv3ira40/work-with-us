@@ -30,10 +30,10 @@
                                 {{ $job->City->name }}
                             </td>
                             <td>
-                                <a href="{{ route('adm.groups.edit', $job->id) }}" class="my-btn btn btn-xs btn-trans btn-info">Detalhes</a>
-                                <a href="{{ route('adm.groups.edit', $job->id) }}" class="my-btn btn btn-xs btn-trans btn-success">Inscreva-se</a>
-                                @if (in_array('adm.groups.edit', HelpAdmin::PermissionsUser()))
+                                @if (in_array('adm.job_opportunities.detail', HelpAdmin::PermissionsUser()))
+                                    <a href="{{ route('adm.job_opportunities.detail', $job->id) }}" class="my-btn btn btn-xs btn-trans btn-info">Detalhes</a>
                                 @endif
+                                    <a href="{{ route('adm.groups.edit', $job->id) }}" class="my-btn btn btn-xs btn-trans btn-success">Inscreva-se</a>
                             </td>
                         </tr>
                     @endforeach

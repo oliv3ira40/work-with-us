@@ -5,11 +5,8 @@
                     <!-- User -->
                     <div style="padding-top: 10px;" class="user-box pb-0">
                         <div class="user-img">
-                            @if (\Auth::User()->Avatar)
-                                <img src="{{ asset(\Auth::User()->Avatar->path) }}" alt="user-img" title="{{ HelpAdmin::completName() }}" class="rounded-circle img-thumbnail img-responsive">
-                            @else
-                                <img src="{{ asset('assets/icons/6.png') }}" alt="user-img" title="{{ HelpAdmin::completName() }}" class="rounded-circle img-thumbnail img-responsive">
-                            @endif
+                            <img src="{{ asset(HelpAdmin::getAvatarUser()) }}" alt="user-img" title="{{ HelpAdmin::completName() }}" class="rounded-circle img-thumbnail img-responsive">
+                            
                             <div class="user-status offline">
                                 <i style="color: {{ \Auth::User()->Group->tag_color }};" class="mdi mdi-adjust"></i>
                             </div>

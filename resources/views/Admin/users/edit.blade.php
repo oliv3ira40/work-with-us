@@ -116,7 +116,9 @@
                         </div>
                     @endif
 
-                    <button type="button" class="btn btn-info btn-trans m-b-20" data-toggle="modal" data-target="#myModal">Alterar imagem de perfil</button>
+                    @if (!HelpAdmin::IsUserCandidate($user))
+                        <button type="button" class="btn btn-info btn-trans m-b-20" data-toggle="modal" data-target="#myModal">Alterar imagem de perfil</button>
+                    @endif
 
                     <div class="form-row">
                         <div class="form-group col-md-12">
