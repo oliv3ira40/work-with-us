@@ -14,14 +14,14 @@ class relatAutoController extends Controller
 
 
 
-    // public function insertFiles()
-    // {
-    //     return view();
-    // }
-    // public function getInformationFromFiles(Request $req)
-    // {
-    //     $data = $req->all();
+    public function insertFiles()
+    {
+        return view();
+    }
+    public function getInformationFromFiles(Request $req)
+    {
+        $data = $req->all();
 
-    //     dd($data);
-    // }
+        dd($data);
+    }
 }
