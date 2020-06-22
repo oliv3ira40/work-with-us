@@ -248,6 +248,16 @@ Route::group(['middleware' => 'VerifyUserPermissions'], function(){
             // TypeOfCourseAvailable
         // personalInformations
 
+        // AutomatedReporting
+            Route::get('relat-auto/inserir-arquivos',
+                'Admin\Reports\relatAutoController@insertFiles')
+                ->name('adm.automated_reporting.insert_files');
+
+            Route::post('relat-auto/get-information-from-files',
+                'Admin\Reports\relatAutoController@getInformationFromFiles')
+                ->name('adm.automated_reporting.get_information_from_files');
+        // AutomatedReporting
+
     });	/*Fecha grupo de verificação de permissões*/
         
     Route::get('/sem-permissao', 'Admin\AdminController@withoutPermission')->name('adm.withoutPermission');
