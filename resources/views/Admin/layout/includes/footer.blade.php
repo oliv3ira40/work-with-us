@@ -155,6 +155,9 @@
         <script src="{{ asset('js/avatars/change_avatar.js') }}"></script>
         <script src="{{ asset('js/address/get_cities_by_state.js') }}"></script>
         <script src="{{ asset('js/candidate_registration/select_schooling_available.js') }}"></script>
+        
+        <script src="{{ asset('js/reports/automated_reporting/fill_read_files.js') }}"></script>
+        <script src="{{ asset('js/reports/automated_reporting/btn_generate_report.js') }}"></script>
         {{-- My js --}}
     </body>
 </html>

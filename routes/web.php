@@ -252,10 +252,13 @@ Route::group(['middleware' => 'VerifyUserPermissions'], function(){
             Route::get('relat-auto/inserir-arquivos',
                 'Admin\Reports\relatAutoController@insertFiles')
                 ->name('adm.automated_reporting.insert_files');
-
             Route::post('relat-auto/get-information-from-files',
                 'Admin\Reports\relatAutoController@getInformationFromFiles')
                 ->name('adm.automated_reporting.get_information_from_files');
+            Route::post('relat-auto/generate-auto-report',
+                'Admin\Reports\relatAutoController@generateAutoReport')
+                ->name('adm.automated_reporting.generate_auto_report');
+
         // AutomatedReporting
 
     });	/*Fecha grupo de verificação de permissões*/
