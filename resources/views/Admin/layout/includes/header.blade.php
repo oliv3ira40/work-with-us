@@ -64,9 +64,9 @@
                 <div style="background: unset;" class="topbar-left">
                     <a href="{{ route('adm.index') }}" class="logo">
                         @if (\Auth::user()->UserSetting->dark_mode)
-                        <img width="230px" src="{{ asset('assets/ntsec-branca.png') }}" alt="logo-ntsec">
+                            <img width="230px" src="{{ asset('assets/ntsec-branca.png') }}" alt="logo-ntsec">
                         @else
-                        <img width="230px" src="{{ asset('assets/ntsec-preta.png') }}" alt="logo-ntsec">
+                            <img width="230px" src="{{ asset('assets/ntsec-preta.png') }}" alt="logo-ntsec">
                         @endif
                         {{-- <span>
                             Start<span>Project</span>

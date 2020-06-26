@@ -11,6 +11,32 @@
                     <div class="form-row">
                         <div class="col-md-12">
                             <div class="form-group">
+                                <label for="name" class="col-form-label">
+                                    Nome
+                                    @if ($errors->has('name'))
+                                        <small class="text-danger txt-trans-initial font-bold">
+                                            {{ $errors->first('name') }}
+                                        </small>
+                                    @endif
+                                </label>
+                                {!! Form::text('name', null, ['class'=>'form-control', 'id'=>'name']) !!}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="description" class="col-form-label">
+                                    Objetivo / Descrição do relatório
+                                    @if ($errors->has('description'))
+                                        <small class="text-danger txt-trans-initial font-bold">
+                                            {{ $errors->first('description') }}
+                                        </small>
+                                    @endif
+                                </label>
+                                {!! Form::textarea('description', null, ['class'=>'form-control', 'id'=>'description', 'rows'=>'4']) !!}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
                                 <label for="files" class="col-form-label">
                                     Arquivos*
                                     @if ($errors->has('files'))

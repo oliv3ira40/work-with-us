@@ -10,6 +10,29 @@
 
                 <div class="row">
                     <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="name" class="col-form-label">
+                                Nome
+                            </label>
+                            <div class="form-control">
+                                {{ $data['name'] }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="description" class="col-form-label">
+                                Objetivo / Descrição do relatório
+                            </label>
+                            <div class="form-control">
+                                {{ $data['description'] }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
                         <div id="accordion">
                             @foreach ($data['files'] as $key => $file)
                                 @php
@@ -18,13 +41,13 @@
                                 <div class="card card_file m-b-5">
                                     <div class="card-header" id="heading{{ $key }}">
                                         <h6 class="m-0">
-                                            <a href="#{{ $file_name }}" class="{{ ($key == 0) ? '' : 'collapsed' }} text-dark font-600" data-toggle="collapse" aria-expanded="{{ ($key == 0) ? 'true' : 'false' }}" aria-controls="{{ $file_name }}">
+                                            <a href="#{{ $file_name }}" class="collapsed text-dark font-600" data-toggle="collapse" aria-expanded="false" aria-controls="{{ $file_name }}">
                                                 {{ $file_name }}
                                             </a>
                                         </h6>
                                     </div>
                         
-                                    <div id="{{ $file_name }}" class="collapse {{ ($key == 0) ? 'show' : '' }}" aria-labelledby="heading{{ $key }}" data-parent="#accordion">
+                                    <div id="{{ $file_name }}" class="collapse" aria-labelledby="heading{{ $key }}" data-parent="#accordion">
                                         <div class="card-body row">
 
                                             {{-- conteudo via js --}}
@@ -38,6 +61,9 @@
                 </div>
 
                 {!! Form::open(['url'=>route('adm.automated_reporting.generate_auto_report'), 'id'=>'form_generate_report']) !!}
+                    {!! Form::hidden('name', $data['name']) !!}
+                    {!! Form::hidden('description', $data['description']) !!}
+                    
                     <div class="row m-t-10">
                         <div class="col-md-12">
                             {!! Form::submit('Gerar relatório', ['class'=>'my-btn btn btn-block btn-primary btn_generate_report disabled']) !!}
