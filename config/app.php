@@ -236,6 +236,7 @@ return [
     
         'HelpAdmin'         =>  App\Helpers\HelpAdmin::class,
         'HelpMenuAdmin'     =>  App\Helpers\HelpMenuAdmin::class,
+        'HelpAutoReport'    =>  App\Helpers\HelpAutoReport::class,
     ],
 
 ];

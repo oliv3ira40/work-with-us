@@ -15,17 +15,27 @@
                                 Nome
                             </label>
                             <div class="form-control">
-                                {{ $data['name'] }}
+                                {{ $data['standard_column_auto_report']->name }}
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <label for="description" class="col-form-label">
+                            <label for="report_objective_description" class="col-form-label">
                                 Objetivo / Descrição do relatório
                             </label>
                             <div class="form-control">
-                                {{ $data['description'] }}
+                                {{ $data['standard_column_auto_report']->report_objective_description }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="clarifications_recommendations" class="col-form-label">
+                                Esclarecimentos e Recomendações
+                            </label>
+                            <div class="form-control">
+                                {{ $data['standard_column_auto_report']->clarifications_recommendations }}
                             </div>
                         </div>
                     </div>
@@ -60,10 +70,7 @@
                     </div>
                 </div>
 
-                {!! Form::open(['url'=>route('adm.automated_reporting.generate_auto_report'), 'id'=>'form_generate_report']) !!}
-                    {!! Form::hidden('name', $data['name']) !!}
-                    {!! Form::hidden('description', $data['description']) !!}
-                    
+                {!! Form::open(['url'=>route('adm.automated_reporting.generate_auto_report'), 'id'=>'form_generate_report']) !!}                    
                     <div class="row m-t-10">
                         <div class="col-md-12">
                             {!! Form::submit('Gerar relatório', ['class'=>'my-btn btn btn-block btn-primary btn_generate_report disabled']) !!}

@@ -136,7 +136,7 @@ $(function() {
         function getClassColor(value) {
             if (value == 'OK') {
                 return 'success';
-            } else if (value == 'WARNING') {
+            } else if (value == 'WARNING' || value == 'ERROR') {
                 return 'danger';
             } else {
                 return 'warning';

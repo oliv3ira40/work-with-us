@@ -6,6 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Helpers\HelpAdmin;
+use App\Helpers\HelpAutoReport;
+
+use App\Models\Admin\User;
+
+use App\Models\Admin\AutoReports\TopicItem;
+use App\Models\Admin\AutoReports\SubtopicItem;
+use App\Models\Admin\AutoReports\StatusSubtopic;
+use App\Models\Admin\AutoReports\standardColumnAutoReport;
 
 class relatAutoController extends Controller
 {
@@ -18,11 +26,15 @@ class relatAutoController extends Controller
 
     public function insertFiles()
     {
-        return view('Admin.reports.automated_reporting.insert_files');
+        $data['standard_column_auto_report'] = standardColumnAutoReport::first();
+
+        return view('Admin.reports.automated_reporting.insert_files', compact('data'));
     }
     public function getInformationFromFiles(Request $req)
     {
         $data = $req->all();
+
+        $data['standard_column_auto_report'] = HelpAutoReport::createOrUpdateStandColAutoReport($data);
 
         // EXTRACT CONTENT FILES
         foreach ($data['files'] as $key => $file) {
@@ -41,16 +53,13 @@ class relatAutoController extends Controller
         $data = $req->all();
         $bar = DIRECTORY_SEPARATOR;
         $auth_user = \Auth::user();
-        // dd($data);
-
+        $data['standard_column_auto_report'] = standardColumnAutoReport::first();
 
         $img_top = public_path().$bar.'imgs_reports/top.png';
         $img_footer = public_path().$bar.'imgs_reports/footer.png';
         $img_back_ground = public_path().$bar.'imgs_reports/back-ground.png';
         $img_full_back_ground = public_path().$bar.'imgs_reports/full-back-ground.png';
 
-        // background: url('.$img_full_back_ground.') no-repeat 0 0;
-        // background-image-resize: 6;
         $html = '
             <style>
                 body {
@@ -85,12 +94,12 @@ class relatAutoController extends Controller
                 <table class="header-table">
                     <tr>
                         <td colspan="4" class="report_name">
-                            <b>'.$data['name'].'</b>
+                            <b>'.$data['standard_column_auto_report']->name.'</b>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="4" style="text-align: justify;">
-                            <b>Objetivo deste relatório: </b>'.$data['description'].'
+                            <b>Objetivo deste relatório: </b>'.$data['standard_column_auto_report']->report_objective_description.'
                         </td>
                     </tr>
 
@@ -115,8 +124,16 @@ class relatAutoController extends Controller
                         <td>'.$auth_user->telephone.'</td>
                     </tr>
                 </table>
+
+                <div>
+                    <p>
+                        <b>Esclarecimentos e Recomendações</b>
+                    </p>
+                    <p style="margin-top: 0px;">'.$data['standard_column_auto_report']->clarifications_recommendations.'</p>
+                </div>
             </div>
         ';
+
         $mpdf = new \Mpdf\Mpdf([
             'mode' => 'c',
             'margin_left' => 0,

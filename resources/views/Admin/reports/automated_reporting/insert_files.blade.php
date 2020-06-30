@@ -19,22 +19,36 @@
                                         </small>
                                     @endif
                                 </label>
-                                {!! Form::text('name', null, ['class'=>'form-control', 'id'=>'name']) !!}
+                                {!! Form::text('name', $data['standard_column_auto_report']->name, ['class'=>'form-control', 'id'=>'name']) !!}
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label for="description" class="col-form-label">
+                                <label for="report_objective_description" class="col-form-label">
                                     Objetivo / Descrição do relatório
-                                    @if ($errors->has('description'))
+                                    @if ($errors->has('report_objective_description'))
                                         <small class="text-danger txt-trans-initial font-bold">
-                                            {{ $errors->first('description') }}
+                                            {{ $errors->first('report_objective_description') }}
                                         </small>
                                     @endif
                                 </label>
-                                {!! Form::textarea('description', null, ['class'=>'form-control', 'id'=>'description', 'rows'=>'4']) !!}
+                                {!! Form::textarea('report_objective_description', $data['standard_column_auto_report']->report_objective_description, ['class'=>'form-control', 'id'=>'report_objective_description', 'rows'=>'4']) !!}
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="clarifications_recommendations" class="col-form-label">
+                                    Esclarecimentos e Recomendações
+                                    @if ($errors->has('clarifications_recommendations'))
+                                        <small class="text-danger txt-trans-initial font-bold">
+                                            {{ $errors->first('clarifications_recommendations') }}
+                                        </small>
+                                    @endif
+                                </label>
+                                {!! Form::textarea('clarifications_recommendations', $data['standard_column_auto_report']->clarifications_recommendations, ['class'=>'form-control', 'id'=>'clarifications_recommendations', 'rows'=>'4']) !!}
+                            </div>
+                        </div>
+                        
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="files" class="col-form-label">
