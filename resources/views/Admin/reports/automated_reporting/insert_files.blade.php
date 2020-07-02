@@ -6,9 +6,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card-box">
-                <h4 class="m-t-0 header-title">Insira os arquivos a serem tratados</h4>
                 {!! Form::open(['url'=>route('adm.automated_reporting.get_information_from_files'), 'files'=>'true']) !!}
-                    <div class="form-row">
+                    <h4 class="header-title m-t-0 m-b-0">Cabeçalho</h4>
+                    <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="name" class="col-form-label">
@@ -48,7 +48,10 @@
                                 {!! Form::textarea('clarifications_recommendations', $data['standard_column_auto_report']->clarifications_recommendations, ['class'=>'form-control', 'id'=>'clarifications_recommendations', 'rows'=>'4']) !!}
                             </div>
                         </div>
-                        
+                    </div>
+
+                    <h4 class="header-title m-t-0 m-b-0">Insira os arquivos a serem tratados</h4>
+                    <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="files" class="col-form-label">

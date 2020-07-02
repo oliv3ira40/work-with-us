@@ -39,6 +39,7 @@
                                 <div class="user-desc ml-0">
                                     {!! Form::open(['url'=>route('adm.user.update_dark_mode'), 'id'=>'update_dark_mode']) !!}
                                         {!! Form::hidden('id', \Auth::user()->UserSetting->id) !!}
+                                        {!! Form::hidden('method', \Request::method()) !!}
 
                                         <label for="dark_mode" id="label-dark-mode" style="width: min-content;">
                                             <span class="name font-weight font-15">
@@ -157,7 +158,6 @@
         <script src="{{ asset('js/candidate_registration/select_schooling_available.js') }}"></script>
         
         <script src="{{ asset('js/reports/automated_reporting/fill_read_files.js') }}"></script>
-        <script src="{{ asset('js/reports/automated_reporting/btn_generate_report.js') }}"></script>
         {{-- My js --}}
     </body>
 </html>

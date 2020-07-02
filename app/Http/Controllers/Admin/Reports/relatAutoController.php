@@ -38,7 +38,7 @@ class relatAutoController extends Controller
 
         // EXTRACT CONTENT FILES
         foreach ($data['files'] as $key => $file) {
-            $start_string = strpos(file_get_contents($file), 'class="sectionTable"') - 7;
+            $start_string = strpos(file_get_contents($file), 'class="hostnameTeal"') - 8;
             $end_string = strrpos(file_get_contents($file), '</tbody></table></div>') + 22;
 
             $data['files'][$key] = [];
@@ -51,14 +51,57 @@ class relatAutoController extends Controller
     public function generateAutoReport(Request $req)
     {
         $data = $req->all();
+        // dd($data);
+        
         $bar = DIRECTORY_SEPARATOR;
         $auth_user = \Auth::user();
-        $data['standard_column_auto_report'] = standardColumnAutoReport::first();
+        $data['standard_column_auto_report'] = HelpAutoReport::createOrUpdateStandColAutoReport($data);
 
         $img_top = public_path().$bar.'imgs_reports/top.png';
         $img_footer = public_path().$bar.'imgs_reports/footer.png';
         $img_back_ground = public_path().$bar.'imgs_reports/back-ground.png';
         $img_full_back_ground = public_path().$bar.'imgs_reports/full-back-ground.png';
+
+
+        $content_inserted_files = '';
+        foreach ($data['data'] as $equipment => $topics) {
+            
+            $topics_html = '';
+            foreach ($topics as $name_topic => $subtopics) {
+
+                $subtopics_html = '';
+                foreach ($subtopics as $name_subtopic => $response) {
+                    $name_subtopic = str_replace(' - ', '', $name_subtopic);
+
+                    $subtopics_html .= '
+                        <p class="mt-0 mb-0 text-bold font-12">
+                            '.$name_subtopic.' - <span class="text-'.str_slug($response[0]).'">'.$response[0].'</span>
+                        </p>
+                        <p class="mt-0 m-b-5 font-12">'.$response[1].'</p>
+                    ';
+                }
+
+                $topics_html .= '
+                    <div class="m-t-10">
+                        <p class="mt-0 mb-0 text-primary">'.$name_topic.'</p>
+
+                        <div class="m-t-5">
+                            '.$subtopics_html.'
+                        </div>
+                    </div>
+                ';
+            }
+
+            $content_inserted_files .= '
+                <div class="m-t-10">
+                    <p class="mt-0 mb-0">
+                        <b>'.$equipment.'</b>
+                    </p>
+
+                    '.$topics_html.'
+                </div>
+            ';
+        }
 
         $html = '
             <style>
@@ -88,6 +131,23 @@ class relatAutoController extends Controller
                     margin-left: 35px;
                     margin-right: 35px;
                 }
+
+                .text-ok { color: green; }
+                .text-warning { color: red; }
+                .text-error { color: red; }
+                .text-info { color: #ecc557; }
+                .text-primary { color: blue; }
+
+                .mt-0 { margin-top: 0px; }
+                .mb-0 { margin-bottom: 0px; }
+
+                .m-t-5 { margin-top: 5px; }
+                .m-b-5 { margin-bottom: 5px; }
+                .m-t-10 { margin-top: 10px; }
+                .m-b-10 { margin-bottom: 10px; }
+
+                .text-bold { font-weight: bold; } 
+                .font-12 { font-size: 12px; }
             </style>
             
             <div class="content">
@@ -129,8 +189,11 @@ class relatAutoController extends Controller
                     <p>
                         <b>Esclarecimentos e Recomendações</b>
                     </p>
-                    <p style="margin-top: 0px;">'.$data['standard_column_auto_report']->clarifications_recommendations.'</p>
+                    <p class="mt-0">'.$data['standard_column_auto_report']->clarifications_recommendations.'</p>
                 </div>
+
+
+                '.$content_inserted_files.'
             </div>
         ';
 
@@ -160,5 +223,25 @@ class relatAutoController extends Controller
         $mpdf->Output();
         exit;
         // $mpdf->Output($get_url_to_save_storage.$file_path, \Mpdf\Output\Destination::FILE);
+    }
+
+    public function getSubtopicStatus(Request $req)
+    {
+        $data = $req->all();
+        $status_subtopics = HelpAutoReport::getSubtopicStatus($data['subtopic'], $data['status']);
+
+        return $status_subtopics;
+    }
+    public function updateSubtopicStatus(Request $req)
+    {
+        $data = $req->all();
+        $status_subtopics = HelpAutoReport::getSubtopicStatus($data['subtopic'], $data['status']);
+
+        try {
+            $status_subtopics->update(['description'=>$data['description']]);
+            return 1;
+        } catch (\Throwable $th) {
+            return 0;
+        }
     }
 }

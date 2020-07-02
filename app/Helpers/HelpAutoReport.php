@@ -23,5 +23,16 @@
             }
 
             return $standard_column_auto_report;
-		}
+        }
+        
+        public static function getSubtopicStatus($name_subtopic, $name_status)
+        {
+            $name_subtopic = str_slug($name_subtopic);
+            $name_status = str_slug($name_status);
+
+            $subtopic_item = SubtopicItem::where('name_slug', $name_subtopic)->first();
+            $status_subtopics = $subtopic_item->StatusSubtopics->where('name_slug', $name_status)->first();
+        
+            return $status_subtopics;
+        }
 	}

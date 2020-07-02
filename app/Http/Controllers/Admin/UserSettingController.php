@@ -32,7 +32,12 @@ class UserSettingController extends Controller
             session()->flash('notification', 'success:Modo escuro ativado!');
         }
 
-        return redirect(url()->previous());
+        // dd(url()->previous());
+        if ($data['method'] == 'POST') {
+            return redirect()->route('adm.index');
+        } else {
+            return redirect(url()->previous());
+        }
     }
 
 }

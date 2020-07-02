@@ -259,6 +259,14 @@ Route::group(['middleware' => 'VerifyUserPermissions'], function(){
                 'Admin\Reports\relatAutoController@generateAutoReport')
                 ->name('adm.automated_reporting.generate_auto_report');
 
+            // Ajax
+                Route::post('relat-auto/get-subtopic-status',
+                    'Admin\Reports\relatAutoController@getSubtopicStatus')
+                    ->name('adm.automated_reporting.get_subtopic_status');
+                Route::post('relat-auto/update-subtopic-status',
+                    'Admin\Reports\relatAutoController@updateSubtopicStatus')
+                    ->name('adm.automated_reporting.update_subtopic_status');
+            // Ajax
         // AutomatedReporting
 
     });	/*Fecha grupo de verificação de permissões*/
