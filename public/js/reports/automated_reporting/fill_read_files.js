@@ -38,7 +38,7 @@ $(function() {
                                 b.find('span').text()
                             ];
                         } else {
-                            data[file_name][name_checkName][index] = [span.text()];
+                            data[file_name][name_checkName][index] = [span.html()];
                         }
                         // return false;
                     }); 
@@ -49,56 +49,47 @@ $(function() {
             // return false;
         });
 
-
         // PREENCHENDO CONTEUDO HTML
         $.each(data, function (name_file, topics) {
             var div_file = $('#'+name_file);
             var count = 0;
-            
+
             var div_inserted_file = $("div[data-file-name='"+name_file+"']");
             var equipment_name = div_inserted_file.find(".hostnameTeal").text();
 
-            $.each(topics, function (name_topic, topic) {
-                var path_body_file = convertToSlug(name_file+"_"+name_topic);
+            $.each(topics, function (name_topic, data_topic) {
+                var topic_path = convertToSlug(name_file+"_"+name_topic);
 
                 var card_body = div_file.find('.card-body');
                 card_body.append(
                     "<div class='col-md-12'>"+
                         "<h4 class='header-title m-t-0 mb-0'>"+name_topic+"</h4>"+
 
-                        "<div class='row "+path_body_file+" m-b-10'></div>"+
+                        "<div class='row "+topic_path+" m-b-10'></div>"+
                     "</div>"
                 );
 
-                $.each(topic, function (key, responses) {
-                    var div_body_file = card_body.find('.'+path_body_file);
+                $.each(data_topic, function (key, responses) {
+                    var div_body_file = card_body.find('.'+topic_path);
                     var class_color = getClassColor(responses[1]);
+                    var subtopic_path = convertToSlug(name_file+"_"+name_topic+"_"+responses[0]);
                     count++;
 
+                    var path_input_name = "subtopics_errors["+equipment_name+"]["+name_topic+"]["+responses[0]+"]";
                     if (responses.length > 1) {
-                        // div_body_file.append('<span>T</span>');
                         div_body_file.append(
-                            "<div class='col-md-12'>"+
+                            "<div class='col-md-12 "+subtopic_path+"'>"+
                                 "<p class='font-bold mb-0 font-12'>"+
                                     responses[0].replace('- ', '')+
                                     "<span class='text-"+class_color+" pull-right'>"+responses[1]+"</span>"+
                                 "</p>"+
 
                                 "<div class='checkbox checkbox-"+class_color+" pl-0 pull-right'>"+
-                                    "<input id='"+name_file+"check_"+count+"' type='checkbox'>"+
+                                    "<input id='"+name_file+"check_"+count+"' class='check_"+convertToSlug(name_topic)+" input_check' data-status='"+responses[1]+"' type='checkbox'>"+
                                     "<label for='"+name_file+"check_"+count+"'>Adicionar ao relatorio</label>"+
                                 "</div>"+
 
-                                "<div id='div_"+name_file+"_"+count+"' class='m-b-10 hide'>"+
-                                    "<label for='"+name_file+"text_"+count+"' class='col-form-label pt-0'>"+
-                                        "Texto a ser adicionado ao relatório"+
-                                        "<i class='m-l-5 text-primary fa fa-spin fa-circle-o-notch hide'></i>"+
-                                        "<span class='m-l-5 text-success hide'>Atualizado!</span>"+
-                                        "<span class='m-l-5 text-danger hide'>Erro ao atualizar</span>"+
-                                    "</label>"+
-                                    "<input type='hidden' id='"+name_file+"hidden_"+count+"' disabled name='data["+equipment_name+"]["+name_topic+"]["+responses[0]+"][0]' value='"+responses[1]+"'>"+
-                                    "<textarea id='"+name_file+"text_"+count+"' disabled name='data["+equipment_name+"]["+name_topic+"]["+responses[0]+"][1]' class='form-control' rows='2'></textarea>"+
-                                "</div>"+
+                                "<input type='hidden' id='"+name_file+"status_"+count+"' disabled name='"+path_input_name+"[0]' value='"+responses[1]+"'>"+
 
                                 "<div class='progress progress-bar-"+class_color+"-alt progress-sm m-b-5 width-100'>"+
                                     "<div class='progress-bar progress-bar-"+class_color+" wow' role='progressbar' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style='width: 0%; visibility: visible;'>"+
@@ -107,20 +98,20 @@ $(function() {
                             "</div>"
                         );
 
-                        showOrHideDivTextSubtopic(name_file, count);
-                        getDescriptionSubtopic(name_file, count, responses[0], responses[1]);
-                        updateDescriptionSubtopic(name_file, count, responses[0], responses[1]);
+                        EnableOrDisableInputs(name_file, count, path_input_name);
+
+                        TakeErrorToSpecificArea(name_file, count, name_topic);
                     } else {
                         // TRAZ TEXTO DE ERRO
-                        // var last_item = div_body_file.find('.col-md-12').last();
+                        var last_item = div_body_file.find('.col-md-12').last();
 
-                        // if (last_item.find('.msg_error').length == 0) {
-                        //     last_item.find('p').append("<p class='font-10 msg_error m-b-5'></p>");
-                        // }
-                        // // console.log(last_item.find('.msg_error'));
-                        // last_item.find('.msg_error').append(
-                        //     responses[0]+"<br>"
-                        // );
+                        if (last_item.find('.msg_error').length == 0) {
+                            last_item.find('p').append("<p class='font-10 msg_error m-b-5'></p>");
+                        }
+                        // console.log(last_item.find('.msg_error'));
+                        last_item.find('.msg_error').append(
+                            "<p class='m-b-5'>"+responses[0]+"</p>"
+                        );
                     }
                     // return false;
                 });
@@ -128,9 +119,136 @@ $(function() {
             });
             // return false;
         });
+        AutoSelectionSpecificSubtopics();
         activeLink(btn_generate_report);
 
 
+        
+        function EnableOrDisableInputs(name_file, count, path_input_name)
+        {
+            var input_check = $("input[id="+name_file+"check_"+count+"]");
+            var input_status = $("input[id="+name_file+"status_"+count+"]");
+            var subtopic_div = input_check.closest('.col-md-12');
+            
+            input_check.on('click', function() {
+                if (input_check.prop('checked')) {
+                    if (subtopic_div.find('p.msg_error').length) {
+                        var errors_p = subtopic_div.find('p.msg_error').find('p');
+                        errors_p.each(function (index, p) {
+                            p = $(this);
+                            
+                            subtopic_div.append(
+                                "<input type='hidden' class='"+name_file+"descr_"+count+"' name='"+path_input_name+"[1]["+index+"]' value='"+p.html()+"'>"
+                            );
+                        });
+                    }
+
+                    enableInput(input_status);
+                } else {
+                    disableInput(input_status);
+                    $("input[class="+name_file+"descr_"+count+"]").remove();
+                }
+            });
+        }
+
+        function TakeErrorToSpecificArea(name_file, count, name_topic) {
+            var input_check = $("input[id="+name_file+"check_"+count+"]");
+            var topics_marked = $("#topics_marked");
+
+            input_check.on('click', function() {
+                if (input_check.prop('checked')) { // ESCREVER DIV
+                    var form_get_topic = $('#form_get_topic');
+                    var _token = form_get_topic.find("input[name='_token']").val();
+                    $.post(form_get_topic.attr('action'), {
+                        _token: _token,
+                        topic: name_topic,
+                    }, function (data, textStatus, jqXHR) {
+                    }).done(function(data) {
+                        
+                        if ($('#div_topic_marked_'+data['name_slug']).length == 0) {
+                            topics_marked.find('.card-body').append(
+                                "<div id='div_topic_marked_"+data['name_slug']+"' class='col-md-12 m-b-10'>"+
+                                    "<label for='' class='col-form-label pt-0'>"+
+                                        data['name']+
+                                        "<i class='m-l-5 text-primary fa fa-spin fa-circle-o-notch hide'></i>"+
+                                        "<span class='m-l-5 text-success hide'>Atualizado!</span>"+
+                                        "<span class='m-l-5 text-danger hide'>Erro ao atualizar</span>"+
+                                    "</label>"+
+
+                                    "<textarea id='' name='topics_errors["+data['name']+"]' class='form-control' rows='3'>"+
+                                        (data['description'] != null ? data['description'] : 'Tópico sem descrição registrada')+
+                                    "</textarea>"+
+                                "</div>"
+                            );
+                            updateDescriptionTopic(data['name_slug']);
+                        }
+                    });
+                } else { // APAGAR DIV
+                    var check_topic = $(".check_"+convertToSlug(name_topic)+":checkbox:checked");
+                    
+                    if (check_topic.length == 0) {
+                        $('#div_topic_marked_'+convertToSlug(name_topic)).remove();
+                    }
+                }
+            });
+        }
+
+        function AutoSelectionSpecificSubtopics() {
+            var inputs_checks = $("input.input_check");
+            
+            inputs_checks.each(function (index, input) {
+                input = $(this);
+                var status = input.attr('data-status');
+                
+                if (status == 'WARNING' ||
+                    status == 'INFO' ||
+                    status == 'ERROR') {
+
+                    input.click();
+                }
+            });
+        }
+
+
+
+
+
+        // Ajax
+        function updateDescriptionTopic(name_topic) {
+            var div_topic = $('#div_topic_marked_'+name_topic);
+            var textarea = div_topic.find('textarea');
+
+            textarea.on('focusout', function() {
+                div_topic.find("i.text-primary").removeClass('hide');
+
+                var form_update_topic = $('#form_update_topic');
+                var _token = form_update_topic.find("input[name='_token']").val();
+                $.post(form_update_topic.attr('action'), {
+                    _token: _token,
+                    topic: name_topic,
+                    description: textarea.val()
+                }, function (data, textStatus, jqXHR) {
+                }).always(function() {
+                    div_topic.find("i.text-primary").addClass('hide');
+                }).done(function(data) {
+
+                    if (data) {
+                        div_topic.find("span.text-success").removeClass('hide');
+                    } else {
+                        div_topic.find("span.text-danger").removeClass('hide');
+                    }
+                });
+            });
+        }
+        // Ajax
+
+        function enableInput(input)
+        {
+            input.removeAttr('disabled');
+        }
+        function disableInput(input) {
+            input.attr('disabled', 'true');
+        }
 
         function getClassColor(value) {
             if (value == 'OK') {
@@ -150,87 +268,5 @@ $(function() {
         function activeLink(item) {
             item.removeClass('disabled');
         }
-
-        function showOrHideDivTextSubtopic(name_file, count)
-        {
-            var input_check = $("input[id="+name_file+"check_"+count+"]");
-            var div_name_file = $("#div_"+name_file+"_"+count+"");
-
-            var input_hidden = $("input[id="+name_file+"hidden_"+count+"]");
-            var textarea = $("textarea[id="+name_file+"text_"+count+"]");
-
-            input_check.on('click', function() {
-                
-                if (input_check.prop('checked')) {
-                    div_name_file.removeClass('hide');
-                    enableInput(input_hidden);
-                    enableInput(textarea);
-                } else {
-                    div_name_file.addClass('hide');
-                    disableInput(input_hidden);
-                    disableInput(textarea);
-                }
-            });
-        }
-
-        function enableInput(input)
-        {
-            input.removeAttr('disabled');
-        }
-        function disableInput(input) {
-            input.attr('disabled', 'true');
-        }
-
-        // Ajax
-        function getDescriptionSubtopic(name_file, count, subtopic, response) {
-            subtopic = subtopic.replace('- ', '');
-            
-            var textarea = $("textarea[id="+name_file+"text_"+count+"]");
-            var input = $("input[id="+name_file+"check_"+count+"]")
-            input.on('click', function() {
-                if (input.prop('checked')) {
-
-                    var _token = form_get_subtopic_status.find("input[name='_token']").val();
-                    $.post(form_get_subtopic_status.attr('action'), {
-                        _token: _token,
-                        subtopic: subtopic,
-                        status: response
-                    }, function (data, textStatus, jqXHR) {
-                    }).done(function(data) {
-                        if (data.description != null) {
-                            textarea.val(data.description);
-                        } else {
-                            textarea.val('Não possui descrição, escreva aqui uma descrição para este tópico');
-                        }
-                    });
-                }
-            });
-        }
-        function updateDescriptionSubtopic(name_file, count, subtopic, response) {
-            var textarea = $("textarea[id="+name_file+"text_"+count+"]");
-            var div = $("div[id=div_"+name_file+"_"+count+"]");
-
-            textarea.on('focusout', function() {
-                div.find("i.text-primary").removeClass('hide');
-
-                var _token = form_update_subtopic_status.find("input[name='_token']").val();
-                $.post(form_update_subtopic_status.attr('action'), {
-                    _token: _token,
-                    subtopic: subtopic,
-                    status: response,
-                    description: textarea.val()
-                }, function (data, textStatus, jqXHR) {
-                    div.find("i.text-primary").addClass('hide');
-                }).done(function(data) {
-
-                    if (data) {
-                        div.find("span.text-success").removeClass('hide');
-                    } else {
-                        div.find("span.text-danger").removeClass('hide');
-                    }
-                });
-            });
-        }
-        // Ajax
     }
 });

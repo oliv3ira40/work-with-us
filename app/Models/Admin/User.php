@@ -47,18 +47,6 @@ class User extends Authenticatable
         return $this->belongsTo(Group::class, 'group_id');
     }
 
-    // Peoples
-        function Professional() {
-            return $this->hasOne('App\Models\Peoples\Professional', 'user_id');
-        }
-        function Office() {
-            return $this->hasOne('App\Models\Peoples\Office', 'user_id');
-        }
-        function Shopkeeper() {
-            return $this->hasOne('App\Models\Peoples\Shopkeeper', 'user_id');
-        }
-    // Peoples
-
     function UserSetting()
     {
         return $this->HasOne(UserSetting::class, 'user_id');
@@ -72,5 +60,9 @@ class User extends Authenticatable
     function PersonalInformation()
     {
         return $this->belongsTo(PersoInformation\PersonalInformation::class, 'personal_information_id');
+    }
+
+    function AutoReport() {
+        return $this->hasMany('App\Models\Admin\Reports\AutoReport', 'user_id');
     }
 }

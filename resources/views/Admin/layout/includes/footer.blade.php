@@ -158,6 +158,7 @@
         <script src="{{ asset('js/candidate_registration/select_schooling_available.js') }}"></script>
         
         <script src="{{ asset('js/reports/automated_reporting/fill_read_files.js') }}"></script>
+        <script src="{{ asset('js/reports/automated_reporting/additional_paragraphs.js') }}"></script>
         {{-- My js --}}
     </body>
 </html>

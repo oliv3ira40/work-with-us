@@ -50,7 +50,7 @@
                         </div>
                     </div>
 
-                    {{-- <h4 class="header-title m-t-10">Parágrafos adicionais</h4> --}}
+                    {{-- Parágrafos adicionais --}}
                     <div class="row m-t-10 m-b-20">
                         <div class="col-md-12">
                             <div id="accordion">
@@ -60,7 +60,7 @@
                                             <a href="#additional_paragraphs" class="collapsed text-dark font-600" data-toggle="collapse" aria-expanded="false" aria-controls="additional_paragraphs">
                                                 Parágrafos adicionais
                                             </a>
-                                            <a href="#" class="text-dark font-600 pull-right">
+                                            <a id="new_paragraphs" href="#" class="text-dark font-600 pull-right">
                                                 Novo parágrafo
                                                 <i class="fa fa-plus m-l-5"></i>
                                             </a>
@@ -69,32 +69,30 @@
                         
                                     <div id="additional_paragraphs" class="collapse" aria-labelledby="heading-additional_paragraphs" data-parent="#accordion">
                                         <div class="card-body row p-t-10 p-b-10">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label for="title" class="col-form-label">
-                                                        Titulo
-                                                        @if ($errors->has('title'))
-                                                            <small class="text-danger txt-trans-initial font-bold">
-                                                                {{ $errors->first('title') }}
-                                                            </small>
-                                                        @endif
-                                                    </label>
-                                                    {!! Form::text('additional_paragraphs[0][title]', null, ['class'=>'form-control', 'id'=>'title']) !!}
+                                            @php
+                                                $count_paragraphs = 0;
+                                            @endphp
+                                            @foreach ($data['additional_paragraphs'] as $additional_paragraph)
+                                                @php
+                                                    $count_paragraphs++;
+                                                @endphp
+                                                <div class="item_additional_{{ $count_paragraphs }} items_paragraphs col-md-6" data-count_paragraphs="{{ $count_paragraphs }}">
+                                                    <div class="form-group">
+                                                        <label for="title_{{ $count_paragraphs }}" class="col-form-label">
+                                                            Titulo
+                                                            <a href="#" class="m-l-10 text-danger remov_paragraph_{{ $count_paragraphs }}">Remover parágrafo</a>
+                                                        </label>
+                                                        {!! Form::text('additional_paragraphs['.$count_paragraphs.'][title]', $additional_paragraph->title, ['class'=>'form-control', 'id'=>'title_'.$count_paragraphs]) !!}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="description_{{ $count_paragraphs }}" class="col-form-label">
+                                                            Descrição
+                                                        </label>
+                                                        {!! Form::textarea('additional_paragraphs['.$count_paragraphs.'][description]', $additional_paragraph->description, ['class'=>'form-control', 'id'=>'description_'.$count_paragraphs, 'rows'=>'4']) !!}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label for="description" class="col-form-label">
-                                                        Descrição
-                                                        @if ($errors->has('description'))
-                                                            <small class="text-danger txt-trans-initial font-bold">
-                                                                {{ $errors->first('description') }}
-                                                            </small>
-                                                        @endif
-                                                    </label>
-                                                    {!! Form::textarea('additional_paragraphs[0][description]', null, ['class'=>'form-control', 'id'=>'description', 'rows'=>'4']) !!}
-                                                </div>
-                                            </div>
+                                            @endforeach
+                                            <input type="hidden" id="count_paragraphs" value="{{ $count_paragraphs }}">
                                         </div>
                                     </div>
                                 </div>
@@ -131,6 +129,28 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="row m-t-10 m-b-20">
+                        <div class="col-md-12">
+                            <div id="accordion">
+                                <div class="card card_file m-b-5">
+                                    <div class="card-header" id="heading-topics_marked">
+                                        <h6 class="m-0">
+                                            <a href="#topics_marked" class="collapsed text-dark font-600" data-toggle="collapse" aria-expanded="false" aria-controls="topics_marked">
+                                                Sub-tópicos marcados a cima
+                                            </a>
+                                        </h6>
+                                    </div>
+                        
+                                    <div id="topics_marked" class="collapse" aria-labelledby="heading-topics_marked" data-parent="#accordion">
+                                        <div class="card-body row p-t-10 p-b-10">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                         
                     <div class="row m-t-10">
                         <div class="col-md-12">
@@ -151,6 +171,18 @@
         {!! Form::open([
             'url'=>route('adm.automated_reporting.update_subtopic_status'),
             'id'=>'form_update_subtopic_status'
+        ]) !!}
+        {!! Form::close() !!}
+        
+
+        {!! Form::open([
+            'url'=>route('adm.automated_reporting.get_topic'),
+            'id'=>'form_get_topic'
+        ]) !!}
+        {!! Form::close() !!}
+        {!! Form::open([
+            'url'=>route('adm.automated_reporting.update_topic'),
+            'id'=>'form_update_topic'
         ]) !!}
         {!! Form::close() !!}
     {{-- Forms --}}

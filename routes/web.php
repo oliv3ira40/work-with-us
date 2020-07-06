@@ -249,23 +249,34 @@ Route::group(['middleware' => 'VerifyUserPermissions'], function(){
         // personalInformations
 
         // AutomatedReporting
+            Route::get('relat-auto/lista',
+                'Admin\Reports\AutoReportController@list')
+                ->name('adm.automated_reporting.list');    
+
             Route::get('relat-auto/inserir-arquivos',
-                'Admin\Reports\relatAutoController@insertFiles')
+                'Admin\Reports\AutoReportController@insertFiles')
                 ->name('adm.automated_reporting.insert_files');
             Route::post('relat-auto/get-information-from-files',
-                'Admin\Reports\relatAutoController@getInformationFromFiles')
+                'Admin\Reports\AutoReportController@getInformationFromFiles')
                 ->name('adm.automated_reporting.get_information_from_files');
             Route::post('relat-auto/generate-auto-report',
-                'Admin\Reports\relatAutoController@generateAutoReport')
+                'Admin\Reports\AutoReportController@generateAutoReport')
                 ->name('adm.automated_reporting.generate_auto_report');
 
             // Ajax
                 Route::post('relat-auto/get-subtopic-status',
-                    'Admin\Reports\relatAutoController@getSubtopicStatus')
+                    'Admin\Reports\AutoReportController@getSubtopicStatus')
                     ->name('adm.automated_reporting.get_subtopic_status');
                 Route::post('relat-auto/update-subtopic-status',
-                    'Admin\Reports\relatAutoController@updateSubtopicStatus')
+                    'Admin\Reports\AutoReportController@updateSubtopicStatus')
                     ->name('adm.automated_reporting.update_subtopic_status');
+                
+                Route::post('relat-auto/get-topic',
+                    'Admin\Reports\AutoReportController@getTopic')
+                    ->name('adm.automated_reporting.get_topic');
+                Route::post('relat-auto/update-topic',
+                    'Admin\Reports\AutoReportController@updateTopic')
+                    ->name('adm.automated_reporting.update_topic');
             // Ajax
         // AutomatedReporting
 

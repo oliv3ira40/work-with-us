@@ -15,7 +15,12 @@ use App\Models\Admin\AutoReports\SubtopicItem;
 use App\Models\Admin\AutoReports\StatusSubtopic;
 use App\Models\Admin\AutoReports\standardColumnAutoReport;
 
-class relatAutoController extends Controller
+use App\Models\Admin\Reports\AdditionalParagraphsForReports;
+use App\Models\Admin\Reports\AutoReport;
+
+use Illuminate\Support\Facades\Storage;
+
+class AutoReportController extends Controller
 {
     public function __construct()
     {
@@ -35,6 +40,7 @@ class relatAutoController extends Controller
         $data = $req->all();
 
         $data['standard_column_auto_report'] = HelpAutoReport::createOrUpdateStandColAutoReport($data);
+        $data['additional_paragraphs'] = AdditionalParagraphsForReports::all();
 
         // EXTRACT CONTENT FILES
         foreach ($data['files'] as $key => $file) {
@@ -51,8 +57,6 @@ class relatAutoController extends Controller
     public function generateAutoReport(Request $req)
     {
         $data = $req->all();
-        // dd($data);
-        
         $bar = DIRECTORY_SEPARATOR;
         $auth_user = \Auth::user();
         $data['standard_column_auto_report'] = HelpAutoReport::createOrUpdateStandColAutoReport($data);
@@ -62,22 +66,63 @@ class relatAutoController extends Controller
         $img_back_ground = public_path().$bar.'imgs_reports/back-ground.png';
         $img_full_back_ground = public_path().$bar.'imgs_reports/full-back-ground.png';
 
+        $content_additional_paragraphs = '';
+        if (isset($data['additional_paragraphs'])) {
+            AdditionalParagraphsForReports::getQuery()->delete();
+            foreach ($data['additional_paragraphs'] as $key => $additional_paragraph) {
+                AdditionalParagraphsForReports::create($additional_paragraph);
+                
+                $content_additional_paragraphs .= '
+                    <div>
+                        <p class="mt-0 mb-0">
+                            <b>'.$additional_paragraph['title'].'</b>
+                        </p>
+    
+                        <p class="text-align">'.$additional_paragraph['description'].'</p>
+                    </div>
+                ';
+            }
+        }
 
-        $content_inserted_files = '';
-        foreach ($data['data'] as $equipment => $topics) {
-            
+        $content_topics_errors = '';
+        foreach ($data['topics_errors'] as $topic => $description) {
+            $content_topics_errors .= '
+                <div>
+                    <p class="mt-0 mb-0">
+                        <b>'.$topic.'</b>
+                    </p>
+
+                    <p class="text-align">'.$description.'</p>
+                </div>
+            ';
+        }
+
+        $content_subtopics_errors = '';
+        foreach ($data['subtopics_errors'] as $equipment => $topics) {
+
             $topics_html = '';
             foreach ($topics as $name_topic => $subtopics) {
 
                 $subtopics_html = '';
-                foreach ($subtopics as $name_subtopic => $response) {
+                foreach ($subtopics as $name_subtopic => $responses) {
                     $name_subtopic = str_replace(' - ', '', $name_subtopic);
+
+                    
+                    $subtopic_error_description = '';
+                    if (isset($responses[1])) {
+                        foreach ($responses[1] as $key => $text) {
+                            $subtopic_error_description .= '
+                                <p class="mt-0 m-b-5 font-12 text-align">'.$text.'</p>
+                            ';
+                        }
+                    }
 
                     $subtopics_html .= '
                         <p class="mt-0 mb-0 text-bold font-12">
-                            '.$name_subtopic.' - <span class="text-'.str_slug($response[0]).'">'.$response[0].'</span>
+                            '.$name_subtopic.' - <span class="text-'.str_slug($responses[0]).'">'.$responses[0].'</span>
                         </p>
-                        <p class="mt-0 m-b-5 font-12">'.$response[1].'</p>
+
+                        '.$subtopic_error_description.'
                     ';
                 }
 
@@ -92,7 +137,7 @@ class relatAutoController extends Controller
                 ';
             }
 
-            $content_inserted_files .= '
+            $content_subtopics_errors .= '
                 <div class="m-t-10">
                     <p class="mt-0 mb-0">
                         <b>'.$equipment.'</b>
@@ -148,6 +193,7 @@ class relatAutoController extends Controller
 
                 .text-bold { font-weight: bold; } 
                 .font-12 { font-size: 12px; }
+                .text-align { text-align: justify; }
             </style>
             
             <div class="content">
@@ -158,7 +204,7 @@ class relatAutoController extends Controller
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="4" style="text-align: justify;">
+                        <td colspan="4" class="text-align">
                             <b>Objetivo deste relatório: </b>'.$data['standard_column_auto_report']->report_objective_description.'
                         </td>
                     </tr>
@@ -189,13 +235,17 @@ class relatAutoController extends Controller
                     <p>
                         <b>Esclarecimentos e Recomendações</b>
                     </p>
-                    <p class="mt-0">'.$data['standard_column_auto_report']->clarifications_recommendations.'</p>
+                    <p class="text-align">'.$data['standard_column_auto_report']->clarifications_recommendations.'</p>
                 </div>
 
+                '.$content_additional_paragraphs.'
+                
+                '.$content_topics_errors.'
 
-                '.$content_inserted_files.'
+                '.$content_subtopics_errors.'
             </div>
         ';
+
 
         $mpdf = new \Mpdf\Mpdf([
             'mode' => 'c',
@@ -207,7 +257,7 @@ class relatAutoController extends Controller
             'margin_footer' => 0,
             'defaultPageNumStyle' => '1'
         ]);
-
+        
         $mpdf->SetDisplayMode('fullpage');
         $mpdf->list_indent_first_level = 0; // 1 or 0 - whether to indent the first level of a list
         $mpdf->SetHTMLHeader('
@@ -217,13 +267,31 @@ class relatAutoController extends Controller
         $mpdf->SetHTMLFooter('
             <img style="" src="'.$img_footer.'">
         ');
-
+        
         $mpdf->WriteHTML($html);
         
-        $mpdf->Output();
-        exit;
-        // $mpdf->Output($get_url_to_save_storage.$file_path, \Mpdf\Output\Destination::FILE);
+        $get_url_to_save_storage = HelpAdmin::getUrlToSaveStorageMpdf();
+        $path_file = 'auto_reports'.$bar.str_slug($auth_user->first_name).$bar.date('d-m-y');
+        $name_file = str_slug($data['name']).'_'.explode(' ', microtime())[1].'.pdf';
+
+
+        $auto_reports = [
+            'name'      =>  $data['name'],
+            'name_slug' =>  str_slug($data['name']),
+            'path_file' =>  $path_file.$bar.$name_file,
+            'user_id'   =>  $auth_user->id,
+        ];
+        AutoReport::create($auto_reports);
+
+        Storage::makeDirectory($path_file);
+        $mpdf->Output($get_url_to_save_storage.$path_file.$bar.$name_file, \Mpdf\Output\Destination::FILE);
+        // $mpdf->Output();
+        // exit;
+        
+        session()->flash('notification', 'success:Relatório criado!');
+        return redirect()->route('adm.automated_reporting.list');
     }
+    // date('(d-m-Y_H-i)')
 
     public function getSubtopicStatus(Request $req)
     {
@@ -243,5 +311,33 @@ class relatAutoController extends Controller
         } catch (\Throwable $th) {
             return 0;
         }
+    }
+
+    public function getTopic(Request $req)
+    {
+        $data = $req->all();
+        $data['topic'] = str_slug($data['topic']);
+
+        return TopicItem::where('name_slug', $data['topic'])->first();
+    }
+    public function updateTopic(Request $req)
+    {
+        $data = $req->all();
+
+        try {
+            TopicItem::where('name_slug', $data['topic'])->first()
+                ->update(['description'=>$data['description']]);
+            
+            return 1;
+        } catch (\Throwable $th) {
+            return 0;
+        }
+    }
+
+    public function list()
+    {
+        $auto_reports = AutoReport::orderBy('created_at', 'desc')->get();
+
+        return view('Admin.reports.automated_reporting.list', compact('auto_reports'));
     }
 }

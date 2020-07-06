@@ -122,3 +122,14 @@
 .font-12 { font-size: 12px;}
 
 .width-100 { width: 100%; }
+
+/* espacamento icones menu lateral */
+#sidebar-menu ul li a i {
+    margin-left: 0px;
+    margin-right: 8px;
+}
+
+/* espacamento dos itens do menu lateral */
+#sidebar-menu > ul > li > a { padding: 8px 20px; }
+
+.display-content { display: contents; }

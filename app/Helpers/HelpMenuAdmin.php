@@ -123,37 +123,7 @@
 						'line'=>true,
 					],
 
-					// Vagas
-					[
-						'permission'=>'adm.menu_jobs',
-						'label'=>'Vagas',
-						'url'=>'#',
-						'link_btn'=>'jobs_id',
-						'icon'=>'fa fa-th-large',
-	
-						'a-active'=>(in_array($action, [
-							'adm.job_opportunities.list',
-							'adm.job_opportunities.new',
-							'adm.job_opportunities.edit',
-							'adm.job_opportunities.alert'
-						])) ? 'active' : '',
-						
-						'sub_menu'=>[
-							[
-								'label'=>'Lista',
-								'url'=>'adm.job_opportunities.list',
-								'active_page'=>(in_array($action, ['adm.job_opportunities.list'])) ? 'active-page' : '',
-							],
-							[
-								'label'=>'Nova vaga',
-								'url'=>'adm.job_opportunities.new',
-								'active_page'=>(in_array($action, ['adm.job_opportunities.new'])) ? 'active-page' : '',
-							],
-						],
-						'line'=>false,
-					],
-
-					// Config
+					// Config Registro de usuários
 					[
 						'permission'=>'adm.user_registration',
 						'label'=>'Registro de usuários',
@@ -194,6 +164,64 @@
 								'label'=>'Tipos de curso',
 								'url'=>'adm.type_cours_avail.list',
 								'active_page'=>(in_array($action, ['adm.type_cours_avail.list'])) ? 'active-page' : '',
+							],
+						],
+						'line'=>false,
+					],
+					// Vagas
+					[
+						'permission'=>'adm.menu_jobs',
+						'label'=>'Vagas',
+						'url'=>'#',
+						'link_btn'=>'jobs_id',
+						'icon'=>'fa fa-th-large',
+	
+						'a-active'=>(in_array($action, [
+							'adm.job_opportunities.list',
+							'adm.job_opportunities.new',
+							'adm.job_opportunities.edit',
+							'adm.job_opportunities.alert'
+						])) ? 'active' : '',
+						
+						'sub_menu'=>[
+							[
+								'label'=>'Lista',
+								'url'=>'adm.job_opportunities.list',
+								'active_page'=>(in_array($action, ['adm.job_opportunities.list'])) ? 'active-page' : '',
+							],
+							[
+								'label'=>'Nova vaga',
+								'url'=>'adm.job_opportunities.new',
+								'active_page'=>(in_array($action, ['adm.job_opportunities.new'])) ? 'active-page' : '',
+							],
+						],
+						'line'=>true,
+					],
+
+					// Relatórios automáticos
+					[
+						'permission'=>'adm.menu_auto_reports',
+						'label'=>'Relatórios automáticos',
+						'url'=>'#',
+						'link_btn'=>'jobs_id',
+						'icon'=>'fa fa-file-pdf-o',
+	
+						'a-active'=>(in_array($action, [
+							'adm.automated_reporting.insert_files',
+							'adm.automated_reporting.get_information_from_files',
+							'adm.automated_reporting.list',
+						])) ? 'active' : '',
+						
+						'sub_menu'=>[
+							[
+								'label'=>'Novo relatório',
+								'url'=>'adm.automated_reporting.insert_files',
+								'active_page'=>(in_array($action, ['adm.automated_reporting.insert_files'])) ? 'active-page' : '',
+							],
+							[
+								'label'=>'Lista de relatórios',
+								'url'=>'adm.automated_reporting.list',
+								'active_page'=>(in_array($action, ['adm.automated_reporting.list'])) ? 'active-page' : '',
 							],
 						],
 						'line'=>false,
