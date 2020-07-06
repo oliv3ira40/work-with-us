@@ -99,6 +99,20 @@
 			}
 			return false;
 		}
+		public static function IsUserSecurityConsultant($user = null)
+		{
+			if ($user == null)
+			{
+				$user = \Auth::user();
+			}
+
+			$group = $user->Group;
+			if ($group->tag == 'security_consultant')
+			{
+				return true;
+			}
+			return false;
+		}
 		
 
 		public static function prepareNotification($notification)

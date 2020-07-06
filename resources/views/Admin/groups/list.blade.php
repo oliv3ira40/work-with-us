@@ -15,6 +15,7 @@
                     <thead>
                         <tr>
                             <th>Nome</th>
+                            <th>Nv Hier</th>
                             <th>Permissões</th>
                             <th>Usuários</th>
                             <th>Data de cadastro</th>
@@ -28,6 +29,9 @@
                                     <span style="background-color: {{ $group->tag_color }};" class="badge badge-primary">
                                         {{ $group->name }}
                                     </span>
+                                </td>
+                                <td>
+                                    {{ $group->hierarchy_level }}
                                 </td>
                                 <td>
                                     {{ $group->Permission->count() }}

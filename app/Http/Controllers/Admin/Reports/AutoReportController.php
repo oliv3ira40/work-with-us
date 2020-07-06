@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use App\Helpers\HelpAdmin;
 use App\Helpers\HelpAutoReport;
 
+use App\Http\Requests\Reports\AutoReport\getInforFromFiles;
+use App\Http\Requests\Reports\AutoReport\genAutoReport;
+
 use App\Models\Admin\User;
 
 use App\Models\Admin\AutoReports\TopicItem;
@@ -35,7 +38,7 @@ class AutoReportController extends Controller
 
         return view('Admin.reports.automated_reporting.insert_files', compact('data'));
     }
-    public function getInformationFromFiles(Request $req)
+    public function getInformationFromFiles(getInforFromFiles $req)
     {
         $data = $req->all();
 
@@ -67,8 +70,8 @@ class AutoReportController extends Controller
         $img_full_back_ground = public_path().$bar.'imgs_reports/full-back-ground.png';
 
         $content_additional_paragraphs = '';
+        AdditionalParagraphsForReports::getQuery()->delete();
         if (isset($data['additional_paragraphs'])) {
-            AdditionalParagraphsForReports::getQuery()->delete();
             foreach ($data['additional_paragraphs'] as $key => $additional_paragraph) {
                 AdditionalParagraphsForReports::create($additional_paragraph);
                 
@@ -246,7 +249,6 @@ class AutoReportController extends Controller
             </div>
         ';
 
-
         $mpdf = new \Mpdf\Mpdf([
             'mode' => 'c',
             'margin_left' => 0,
@@ -273,7 +275,6 @@ class AutoReportController extends Controller
         $get_url_to_save_storage = HelpAdmin::getUrlToSaveStorageMpdf();
         $path_file = 'auto_reports'.$bar.str_slug($auth_user->first_name).$bar.date('d-m-y');
         $name_file = str_slug($data['name']).'_'.explode(' ', microtime())[1].'.pdf';
-
 
         $auto_reports = [
             'name'      =>  $data['name'],
@@ -339,5 +340,24 @@ class AutoReportController extends Controller
         $auto_reports = AutoReport::orderBy('created_at', 'desc')->get();
 
         return view('Admin.reports.automated_reporting.list', compact('auto_reports'));
+    }
+
+    public function alert($id)
+    {
+        $auto_report = AutoReport::find($id);
+
+        return view('Admin.reports.automated_reporting.alert', compact('auto_report'));
+    }
+    public function delete(Request $req)
+    {
+        $data = $req->all();
+
+        $auto_report = AutoReport::find($data['id']);
+
+        Storage::delete($auto_report->path_file);
+        $auto_report->delete();
+
+        session()->flash('notification', 'success:Relatório excluído!');
+        return redirect()->route('adm.automated_reporting.list');
     }
 }

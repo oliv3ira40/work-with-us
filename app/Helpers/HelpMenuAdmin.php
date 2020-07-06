@@ -282,6 +282,49 @@
 					],
 				];
 
+			} elseif (HelpAdmin::IsUserSecurityConsultant()) {
+				return [
+					// Página inicial
+					[
+						'permission'=>'adm.index',
+						'label'=>'Página inicial',
+						'url'=>'adm.index',
+						'icon'=>'fa fa-home',
+						'line'=>true,
+	
+						'a-active'=>(in_array($action, ['adm.index'])) ? 'active' : '',
+					],
+
+					// Relatórios automáticos
+					[
+						'permission'=>'adm.menu_auto_reports',
+						'label'=>'Relatórios automáticos',
+						'url'=>'#',
+						'link_btn'=>'jobs_id',
+						'icon'=>'fa fa-file-pdf-o',
+	
+						'a-active'=>(in_array($action, [
+							'adm.automated_reporting.insert_files',
+							'adm.automated_reporting.get_information_from_files',
+							'adm.automated_reporting.list',
+						])) ? 'active' : '',
+						
+						'sub_menu'=>[
+							[
+								'label'=>'Novo relatório',
+								'url'=>'adm.automated_reporting.insert_files',
+								'active_page'=>(in_array($action, ['adm.automated_reporting.insert_files'])) ? 'active-page' : '',
+							],
+							[
+								'label'=>'Lista de relatórios',
+								'url'=>'adm.automated_reporting.list',
+								'active_page'=>(in_array($action, ['adm.automated_reporting.list'])) ? 'active-page' : '',
+							],
+						],
+						'line'=>false,
+					],
+				];
+				
 			} else
 			{
 				return [

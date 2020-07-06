@@ -11,6 +11,7 @@
                 <table class="datatable table table-bordered">
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th>Nome</th>
                             <th>Criado</th>
                             <th>Data de criação</th>
@@ -20,6 +21,9 @@
                     <tbody>
                         @foreach ($auto_reports as $auto_report)
                             <tr>
+                                <td>
+                                    {{ $auto_report->id }}
+                                </td>
                                 <td>
                                     {{ $auto_report->name }}
                                 </td>
@@ -33,9 +37,11 @@
                                     <a href="{{ asset(HelpAdmin::getStorageUrl().$auto_report->path_file) }}" download="{{ $auto_report->name_slug }}" class="my-btn btn btn-xs btn-trans btn-info">
                                         Baixar
                                     </a>
-                                    <a href="#" class="my-btn btn btn-xs btn-trans btn-danger">Excluir</a>
-                                    {{-- @if (in_array('adm.job_opportunities.alert', HelpAdmin::PermissionsUser()))
-                                    @endif --}}
+                                    @if (in_array('adm.automated_reporting.alert', HelpAdmin::PermissionsUser()))
+                                        <a href="{{ route('adm.automated_reporting.alert', $auto_report->id) }}" class="my-btn btn btn-xs btn-trans btn-danger">
+                                            Excluir
+                                        </a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

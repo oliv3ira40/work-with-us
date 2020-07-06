@@ -37,7 +37,7 @@ class updateUser extends FormRequest
             'telephone'     =>  'bail|nullable|max:20',
             'password'      =>  'bail|nullable|min:5|confirmed',
             'login'         =>  'nullable',
-            'group_id'      =>  'required',
+            'group_id'      =>  ($this->group_id != null) ? 'required' : '',
         ];
     }
 

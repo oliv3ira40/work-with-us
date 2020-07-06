@@ -12,7 +12,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="name" class="col-form-label">
-                                    Nome
+                                    Nome*
                                     @if ($errors->has('name'))
                                         <small class="text-danger txt-trans-initial font-bold">
                                             {{ $errors->first('name') }}
@@ -25,7 +25,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="report_objective_description" class="col-form-label">
-                                    Objetivo / Descrição do relatório
+                                    Objetivo / Descrição do relatório*
                                     @if ($errors->has('report_objective_description'))
                                         <small class="text-danger txt-trans-initial font-bold">
                                             {{ $errors->first('report_objective_description') }}
@@ -38,7 +38,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="clarifications_recommendations" class="col-form-label">
-                                    Esclarecimentos e Recomendações
+                                    Esclarecimentos e Recomendações*
                                     @if ($errors->has('clarifications_recommendations'))
                                         <small class="text-danger txt-trans-initial font-bold">
                                             {{ $errors->first('clarifications_recommendations') }}

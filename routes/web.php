@@ -263,6 +263,13 @@ Route::group(['middleware' => 'VerifyUserPermissions'], function(){
                 'Admin\Reports\AutoReportController@generateAutoReport')
                 ->name('adm.automated_reporting.generate_auto_report');
 
+            Route::get('relat-auto/alerta/{id}',
+                'Admin\Reports\AutoReportController@alert')
+                ->name('adm.automated_reporting.alert');
+            Route::post('relat-auto/delete',
+                'Admin\Reports\AutoReportController@delete')
+                ->name('adm.automated_reporting.delete');
+
             // Ajax
                 Route::post('relat-auto/get-subtopic-status',
                     'Admin\Reports\AutoReportController@getSubtopicStatus')
@@ -279,7 +286,6 @@ Route::group(['middleware' => 'VerifyUserPermissions'], function(){
                     ->name('adm.automated_reporting.update_topic');
             // Ajax
         // AutomatedReporting
-
     });	/*Fecha grupo de verificação de permissões*/
         
     Route::get('/sem-permissao', 'Admin\AdminController@withoutPermission')->name('adm.withoutPermission');

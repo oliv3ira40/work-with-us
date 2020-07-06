@@ -101,11 +101,16 @@ class UserController extends Controller
     {
         $data = $req->all();
         $user = User::find($data['id']);
+        
         if ($data['password'] != null)
         {
             $data['password'] = bcrypt($data['password']);
         } else {
             unset($data['password']);
+        }
+
+        if (!in_array('adm.users.edit_group', HelpAdmin::permissionsUser())) {
+            unset($data['group_id']);
         }
         
         $user->update($data);

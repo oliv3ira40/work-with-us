@@ -12,7 +12,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="name" class="col-form-label">
-                                    Nome
+                                    Nome*
                                     @if ($errors->has('name'))
                                         <small class="text-danger txt-trans-initial font-bold">
                                             {{ $errors->first('name') }}
@@ -25,7 +25,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="report_objective_description" class="col-form-label">
-                                    Objetivo / Descrição do relatório
+                                    Objetivo / Descrição do relatório*
                                     @if ($errors->has('report_objective_description'))
                                         <small class="text-danger txt-trans-initial font-bold">
                                             {{ $errors->first('report_objective_description') }}
@@ -38,7 +38,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="clarifications_recommendations" class="col-form-label">
-                                    Esclarecimentos e Recomendações
+                                    Esclarecimentos e Recomendações*
                                     @if ($errors->has('clarifications_recommendations'))
                                         <small class="text-danger txt-trans-initial font-bold">
                                             {{ $errors->first('clarifications_recommendations') }}
@@ -127,9 +127,15 @@
                                     </div>
                                 @endforeach
                             </div>
+                            @if ($errors->has('subtopics_errors'))
+                                <small class="text-danger txt-trans-initial font-bold">
+                                    {{ $errors->first('subtopics_errors') }}
+                                </small>
+                            @endif
                         </div>
                     </div>
 
+                    {{-- Sub-tópicos marcados a cima* --}}
                     <div class="row m-t-10 m-b-20">
                         <div class="col-md-12">
                             <div id="accordion">
@@ -137,7 +143,7 @@
                                     <div class="card-header" id="heading-topics_marked">
                                         <h6 class="m-0">
                                             <a href="#topics_marked" class="collapsed text-dark font-600" data-toggle="collapse" aria-expanded="false" aria-controls="topics_marked">
-                                                Sub-tópicos marcados a cima
+                                                Sub-tópicos marcados a cima*
                                             </a>
                                         </h6>
                                     </div>
@@ -149,6 +155,11 @@
                                     </div>
                                 </div>
                             </div>
+                            @if ($errors->has('topics_errors'))
+                                <small class="text-danger txt-trans-initial font-bold">
+                                    {{ $errors->first('topics_errors') }}
+                                </small>
+                            @endif
                         </div>
                     </div>
                         
