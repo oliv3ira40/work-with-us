@@ -292,7 +292,7 @@ Route::group(['middleware' => 'VerifyUserPermissions'], function(){
 
     Auth::routes();
     
-    Route::post('check_email', 'Auth\LoginCOntroller@checkEmail')->name('adm.check_email');
+    Route::post('check_email', 'Auth\LoginController@checkEmail')->name('adm.check_email');
     Route::get('bem-vindo-de-volta/{id}', 'Auth\LoginController@welcomeBack')->name('adm.welcome_back');
     
     Route::get('novo-candidato/{email}', 'Auth\LoginController@newCandidate')->name('adm.new_candidate');

@@ -20,7 +20,8 @@ class VerifyUserPermissions
             if ($group_id == null) return redirect()->route('adm.withoutPermission');
 
             $routes_user = Permission::where('group_id', $group_id)->get();
-            foreach ($routes_user as $value) {
+            foreach ($routes_user as $value)
+            {
                 $permissions_user[] = $value->CreatedPermission->route;
             }
             

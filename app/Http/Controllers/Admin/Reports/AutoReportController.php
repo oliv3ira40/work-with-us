@@ -59,6 +59,7 @@ class AutoReportController extends Controller
     }
     public function generateAutoReport(Request $req)
     {
+        set_time_limit(1000000);
         $data = $req->all();
         $bar = DIRECTORY_SEPARATOR;
         $auth_user = \Auth::user();
@@ -262,14 +263,15 @@ class AutoReportController extends Controller
         
         $mpdf->SetDisplayMode('fullpage');
         $mpdf->list_indent_first_level = 0; // 1 or 0 - whether to indent the first level of a list
+        // dd('123');
         $mpdf->SetHTMLHeader('
             <img style="" src="'.$img_top.'">
             <div class="count_pages">Página {PAGENO} de {nb}</div>
         ');
+        // dd('123');
         $mpdf->SetHTMLFooter('
             <img style="" src="'.$img_footer.'">
         ');
-        
         $mpdf->WriteHTML($html);
         
         $get_url_to_save_storage = HelpAdmin::getUrlToSaveStorageMpdf();
