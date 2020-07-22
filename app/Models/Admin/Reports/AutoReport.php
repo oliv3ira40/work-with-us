@@ -10,7 +10,8 @@ class AutoReport extends Model
     protected $fillable = [
         'name',
         'name_slug',
-        'path_file',
+        'path_file_pdf',
+        'path_file_docx',
         'user_id'
     ];
 

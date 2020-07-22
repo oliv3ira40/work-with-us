@@ -22,6 +22,8 @@ use Carbon\Carbon;
 use PhpParser\Node\Stmt\Foreach_;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpWord\Element\Section;
+use PhpOffice\PhpWord\Shared\Converter;
 
 use Illuminate\Support\Facades\Storage;
 
@@ -36,24 +38,6 @@ class AdminController extends Controller
 
     public function index()
     {
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         if (HelpAdmin::IsUserDeveloper())
         {
             $data['user'] = \Auth::user();

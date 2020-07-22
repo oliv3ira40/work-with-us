@@ -34,9 +34,16 @@
                                     {{ $auto_report->created_at->format('d-m-Y H:i') }}
                                 </td>
                                 <td>
-                                    <a href="{{ asset(HelpAdmin::getStorageUrl().$auto_report->path_file) }}" download="{{ $auto_report->name_slug }}" class="my-btn btn btn-xs btn-trans btn-info">
-                                        Baixar
-                                    </a>
+                                    @if ($auto_report->path_file_pdf)
+                                        <a href="{{ asset(HelpAdmin::getStorageUrl().$auto_report->path_file_pdf) }}" download="{{ $auto_report->name_slug }}" class="my-btn btn btn-xs btn-trans btn-success">
+                                            PDF
+                                        </a>
+                                    @endif
+                                    @if ($auto_report->path_file_docx)
+                                        <a href="{{ asset(HelpAdmin::getStorageUrl().$auto_report->path_file_docx) }}" download="{{ $auto_report->name_slug }}" class="my-btn btn btn-xs btn-trans btn-primary">
+                                            DOCX
+                                        </a>
+                                    @endif
                                     @if (in_array('adm.automated_reporting.alert', HelpAdmin::PermissionsUser()))
                                         <a href="{{ route('adm.automated_reporting.alert', $auto_report->id) }}" class="my-btn btn btn-xs btn-trans btn-danger">
                                             Excluir

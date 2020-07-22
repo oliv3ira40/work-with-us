@@ -18,7 +18,8 @@ class CreateAutoReportsTable extends Migration
             
             $table->string('name', 150)->nullable();
             $table->string('name_slug', 150)->nullable();
-            $table->string('path_file', 300)->nullable();
+            $table->string('path_file_pdf', 300)->nullable();
+            $table->string('path_file_docx', 300)->nullable();
             // user_id
 
             $table->timestamps();
