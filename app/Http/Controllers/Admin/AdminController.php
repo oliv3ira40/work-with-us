@@ -14,6 +14,7 @@ use App\Models\Admin\Avatar;
 use App\Models\Admin\User;
 use App\Models\Admin\Group;
 use App\Models\Admin\CreatedPermission;
+use App\Models\Admin\Reports\AutoReport;
 
 use App\Models\Admin\Jobs\JobOpportunity;
 
@@ -52,6 +53,11 @@ class AdminController extends Controller
         {
             return redirect()->route('adm.administrator.index');
 
+        } elseif (HelpAdmin::IsUserSecurityConsultant())
+        {
+            $data['auto_reports'] = AutoReport::orderBy('created_at', 'desc')->get();
+            
+            return view('Admin.security_consultant_index', compact('data'));
         } elseif (HelpAdmin::IsUserCandidate())
         {
             if (\Auth::user()->PersonalInformation == null) {

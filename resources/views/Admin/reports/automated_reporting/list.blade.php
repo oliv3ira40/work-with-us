@@ -35,12 +35,12 @@
                                 </td>
                                 <td>
                                     @if ($auto_report->path_file_pdf)
-                                        <a href="{{ asset(HelpAdmin::getStorageUrl().$auto_report->path_file_pdf) }}" download="{{ $auto_report->name_slug }}" class="my-btn btn btn-xs btn-trans btn-success">
+                                        <a href="{{ asset(HelpAdmin::getStorageUrl().$auto_report->path_file_pdf) }}" download="{{ $auto_report->name_slug }}.pdf" class="my-btn btn btn-xs btn-trans btn-success">
                                             PDF
                                         </a>
                                     @endif
                                     @if ($auto_report->path_file_docx)
-                                        <a href="{{ asset(HelpAdmin::getStorageUrl().$auto_report->path_file_docx) }}" download="{{ $auto_report->name_slug }}" class="my-btn btn btn-xs btn-trans btn-primary">
+                                        <a href="{{ asset(HelpAdmin::getStorageUrl().$auto_report->path_file_docx) }}" download="{{ $auto_report->name_slug }}.docx" class="my-btn btn btn-xs btn-trans btn-primary">
                                             DOCX
                                         </a>
                                     @endif
